@@ -1,0 +1,20 @@
+a {
+  color: inherit;
+}
+
+.Maininmain {
+  width: 100%;
+  height: 55vw;
+  background-image: url("https://a0.muscache.com/im/pictures/0abcf5f2-3e02-4a67-b4bf-52665b6366c2.jpg?im_w=1440");
+  background-position: center;
+  background-size: cover;
+}
+
+.mainNav {
+  width: 100%;
+}
+
+.mainlogo {
+  width: 500px;
+  height: 300px;
+}
