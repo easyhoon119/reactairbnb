@@ -2,8 +2,8 @@ import styled from "styled-components";
 
 
 export const PageWrap = styled.div`
-    width:100vw;
-    height:90vh;
+    width:100%;
+    height:100%;
 `;
 
 export const CoronaStyle = styled.div`

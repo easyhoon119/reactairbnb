@@ -1,5 +1,5 @@
 import { BrowserRouter, Route, Switch } from "react-router-dom"
-import IndexPage from "../pages"
+import IndexPage from "../pages/main"
 // import HomePage from "../pages/home"
 import NoMatchPage from "../pages/noMatch"
 
