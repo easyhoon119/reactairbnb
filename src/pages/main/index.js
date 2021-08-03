@@ -5,8 +5,11 @@ import Header from './Header';
 import Body from './Body';
 import Footer from '../../components/common/Footer';
 import LoginModal from '../../components/common/LoginModal';
+import { useSelector } from 'react-redux';
 
 const IndexPage = () => {
+
+    const isLoginBox = useSelector(state => state.LoginBoxReducer);
 
     return (
         <div style={{ overflowY: 'none' }}>
@@ -17,7 +20,7 @@ const IndexPage = () => {
                 <Header />
                 <Body />
                 <Footer />
-                <LoginModal />
+                {isLoginBox.isLoginBox === true ? <LoginModal /> : ''}
             </PageWrap>
         </div>
     )

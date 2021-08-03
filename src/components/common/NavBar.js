@@ -1,10 +1,12 @@
 import styled from "styled-components";
 import logo from '../../image/mainlogo.png';
 import { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { loginBoxAction } from '../../store/actions/loginbox';
 
 function NavBar() {
 
+    const dispatch = useDispatch();
     const [isProfile, setProfile] = useState(false);
     const isLoginBox = useSelector(state => state.LoginBoxReducer);
 
@@ -13,15 +15,11 @@ function NavBar() {
     };
 
     const goLoginModal = () => {
-        const bodyClass = document.querySelector('body').classList[0];
-        if (bodyClass === 'openlogin') {
-            console.log('1');
-            document.querySelector('body').classList.remove('openlogin');
-        }
-        else {
-            document.querySelector('body').classList.add('openlogin');
-        }
-        console.log(isLoginBox);
+        document.querySelector('body').classList.add('openlogin');
+        console.log(isLoginBox.isLoginBox);
+        dispatch(loginBoxAction({
+            isLoginBox: true
+        }));
     };
 
     const showLink = isProfile === true ? <ProfileLink>

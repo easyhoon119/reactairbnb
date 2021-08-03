@@ -1,4 +1,4 @@
-export const likeAction = (data) => {
+export const loginBoxAction = (data) => {
     return {
         type: 'LOGINBOX',
         data: data

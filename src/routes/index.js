@@ -10,7 +10,7 @@ const RootRoute = () => {
             <Switch>
 
                 {/* 기본 루트페이지 */}
-                <Route path='/' component={IndexPage} exact key="index" />
+                <Route path='/' component={IndexPage} key="index" />
 
                 {/* 추가되는 페이지 */}
                 {/* <Route path='/home' component={HomePage} exact key="home" /> */}
