@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 import { loginBoxAction } from '../../store/actions/loginbox';
+import { IsLoggedAction } from '../../store/actions/isLogged';
 import TextField from '@material-ui/core/TextField';
 import { Link } from "react-router-dom";
 import { useState, useRef } from 'react';
@@ -28,20 +29,18 @@ function LoginModal() {
             setEmail(emailInput.current.childNodes[1].childNodes[0].value);
             setWhatModal('password');
             setRightMargin(20);
-
-            try {
-                const url = '';
-            } catch (error) {
-                console.log(error);
-                alert('비밀번호가 틀렸습니다.')
-            }
         }
     }
 
     const goLogin = () => {
         console.log(email, passwordInput.current.childNodes[1].childNodes[0].value);
-        setPassword(passwordInput.current.childNodes[1].childNodes[0].value);
-
+        if (passwordInput.current.childNodes[1].childNodes[0].value === 'abcd1234') {
+            setPassword(passwordInput.current.childNodes[1].childNodes[0].value);
+            dispatch(IsLoggedAction({
+                isLogged: true
+            }));
+            closeModal();
+        }
     };
 
     const selectModal = () => {
@@ -71,7 +70,7 @@ function LoginModal() {
         else if (whatModal === 'password') {
             return (
                 <div className="inner">
-                    <TextField ref={passwordInput} id="outlined-basic" color="secondary" fullWidth label="비밀번호" variant="outlined" placeholder="비밀번호" />
+                    <TextField ref={passwordInput} id="outlined-basic" type="password" color="secondary" fullWidth label="비밀번호" variant="outlined" placeholder="비밀번호" />
                     <SubmitButton style={{ marginBottom: '2vw' }} onClick={goLogin}>로그인</SubmitButton>
                     <Link to='#' style={{ fontSize: '1.1vw' }}>비밀번호를 잊으셨나요?</Link>
                 </div>
@@ -147,6 +146,7 @@ const SubmitButton = styled.div`
     align-items : center;
     margin-top : 1.8vw;
     font-size : 1.4vw;
+    cursor: pointer;
 `;
 
 const SocialButton = styled.div`
@@ -158,6 +158,7 @@ const SocialButton = styled.div`
     display : flex;
     align-items : center;
     font-size : 1.2vw;
+    cursor: pointer;
 
     i {
         font-size : 1.7vw;

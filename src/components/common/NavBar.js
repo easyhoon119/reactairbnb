@@ -9,6 +9,7 @@ function NavBar() {
     const dispatch = useDispatch();
     const [isProfile, setProfile] = useState(false);
     const isLoginBox = useSelector(state => state.LoginBoxReducer);
+    const isLogged = useSelector(state => state.IsLoggedReducer);
 
     const clickProfile = () => {
         setProfile(!isProfile);
@@ -17,6 +18,7 @@ function NavBar() {
     const goLoginModal = () => {
         document.querySelector('body').classList.add('openlogin');
         console.log(isLoginBox.isLoginBox);
+        console.log(isLogged.isLogged);
         dispatch(loginBoxAction({
             isLoginBox: true
         }));
@@ -51,6 +53,7 @@ function NavBar() {
                     <ProfileSelect onClick={clickProfile}>
                         <i className="fas fa-bars" style={{ color: 'grey', marginRight: '10px' }}></i>
                         <i className="fas fa-user-circle" style={{ color: 'grey', fontSize: '30px' }}></i>
+                        {isLogged.isLogged === true ? <LoggedDot></LoggedDot> : ''}
                         {showLink}
                     </ProfileSelect>
                 </div>
@@ -58,6 +61,18 @@ function NavBar() {
         </>
     );
 }
+
+const LoggedDot = styled.div`
+    width: 1vw;
+    height : 1vw;
+    border-radius : 50%;
+    border:2px solid white;
+    background-color: red;
+    position: absolute;
+    right : 1vw;
+    top : 0vw;
+`;
+
 
 const Mainlogo = styled.div`
     width: 100px;
