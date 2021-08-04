@@ -12,17 +12,15 @@ const IndexPage = () => {
     const isLoginBox = useSelector(state => state.LoginBoxReducer);
 
     return (
-        <div style={{ overflowY: 'none' }}>
-            <PageWrap>
-                <CoronaStyle>
-                    <CoronaText><Link to="#">에어비앤비의 코로나19 대응 방안에 대한 최신 정보를 확인하세요.</Link></CoronaText>
-                </CoronaStyle>
-                <Header />
-                <Body />
-                <Footer />
-                {isLoginBox.isLoginBox === true ? <LoginModal /> : ''}
-            </PageWrap>
-        </div>
+        <PageWrap>
+            <CoronaStyle>
+                <CoronaText><Link to="#">에어비앤비의 코로나19 대응 방안에 대한 최신 정보를 확인하세요.</Link></CoronaText>
+            </CoronaStyle>
+            <Header />
+            <Body />
+            <Footer />
+            {isLoginBox.isLoginBox === true ? <LoginModal /> : ''}
+        </PageWrap>
     )
 }
 

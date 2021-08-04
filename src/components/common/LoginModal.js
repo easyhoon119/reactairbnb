@@ -5,6 +5,7 @@ import { IsLoggedAction } from '../../store/actions/isLogged';
 import TextField from '@material-ui/core/TextField';
 import { Link } from "react-router-dom";
 import { useState, useRef } from 'react';
+import axios from 'axios';
 
 function LoginModal() {
 
@@ -16,11 +17,10 @@ function LoginModal() {
     const newEmailInput = useRef();
     const newPasswordInput = useRef();
     const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+    const [password, setPassword] = useState('1');
     const [name, setName] = useState('');
-    const [firstName, setFirstName] = useState('');
     const [birth, setBirth] = useState('');
-    const [rightMargin, setRightMargin] = useState(15);
+    const [rightMargin, setRightMargin] = useState(16);
     const [whatModal, setWhatModal] = useState('email');
     const [title, setTitle] = useState('로그인 또는 회원가입');
     const dispatch = useDispatch();
@@ -32,46 +32,91 @@ function LoginModal() {
         }));
     };
 
-    const goPassword = () => {
-        if (emailInput.current.childNodes[1].childNodes[0].value === 'gil@gmail.com') {
-            setEmail(emailInput.current.childNodes[1].childNodes[0].value);
-            setWhatModal('password');
-            setRightMargin(20);
-            setTitle('로그인');
-        }
+    const goPassword = async () => {
 
-        else {
+        try {
+            console.log(1);
+            const url = "https://prod.devsanha.site/app/login";
+
+            const res = await axios({
+                method: 'post',
+                url: url,
+                data: {
+                    'email': emailInput.current.childNodes[1].childNodes[0].value,
+                    'password': password
+                }
+            });
+
+            console.log(res);
             setEmail(emailInput.current.childNodes[1].childNodes[0].value);
-            setWhatModal('makenewId');
-            setTitle('회원가입 완료하기');
+
+            if (res.data.code === 3004) {
+                setWhatModal('password');
+                setRightMargin(20);
+                setTitle('로그인');
+            }
+
+            else if (res.data.code === 3003) {
+                setWhatModal('makenewId');
+                setTitle('회원가입 완료하기');
+            }
         }
+        catch (error) {
+            console.log(error);
+        }
+        console.log(2);
     }
 
-    const goLogin = () => {
-        console.log(email, passwordInput.current.childNodes[1].childNodes[0].value);
-        if (passwordInput.current.childNodes[1].childNodes[0].value === 'abcd1234') {
+    const goLogin = async () => {
+
+        try {
+            const url = "https://prod.devsanha.site/app/login";
+
+            const res = await axios({
+                method: 'post',
+                url: url,
+                data: {
+                    'email': email,
+                    'password': passwordInput.current.childNodes[1].childNodes[0].value
+                }
+            });
+
+            console.log(res);
             setPassword(passwordInput.current.childNodes[1].childNodes[0].value);
-            dispatch(IsLoggedAction({
-                isLogged: true
-            }));
-            closeModal();
+
+            if (res.data.code === 1000) {
+                dispatch(IsLoggedAction({
+                    isLogged: true
+                }));
+                setName(res.data.result.name);
+                closeModal();
+                console.log(res.data);
+            }
+
+            else if (res.data.code === 3004) {
+                console.log('비밀번호 틀림')
+                alert('비밀번호를 다시 입력해주세요.')
+            }
+        }
+        catch (error) {
+            console.log(error);
         }
     };
 
     const returnEmail = () => {
         setWhatModal('email');
+        setRightMargin(16);
         setEmail('');
         setTitle('로그인 또는 회원가입');
     }
 
     const goMakeId = () => {
-        setName(nameInput.current.childNodes[1].childNodes[0].value);
-        setFirstName(firstNameInput.current.childNodes[1].childNodes[0].value);
-        setBirth(birthInput.current.childNodes[0].childNodes[0].value);
-        setEmail(newEmailInput.current.childNodes[1].childNodes[0].value);
-        setPassword(newPasswordInput.current.childNodes[1].childNodes[0].value);
+        const name1 = `${firstNameInput.current.childNodes[1].childNodes[0].value}${nameInput.current.childNodes[1].childNodes[0].value}`;
+        const birth1 = birthInput.current.childNodes[0].childNodes[0].value;
+        const email1 = newEmailInput.current.childNodes[1].childNodes[0].value;
+        const password1 = newPasswordInput.current.childNodes[1].childNodes[0].value;
         alert('회원가입이 완료되었습니다. 다시 로그인 해주세요.');
-        console.log(name, firstName, birth, email, password);
+        console.log(name1, birth1, email1, password1);
         setWhatModal('email');
     };
 
@@ -174,7 +219,7 @@ const LModal = styled.div`
     display : flex;
     justify-content : center;
     align-items : center;
-    pointer-events:auto;
+    z-index:100;
 
     a {
         color : inherit;

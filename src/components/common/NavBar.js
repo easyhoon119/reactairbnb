@@ -1,16 +1,21 @@
 import styled from "styled-components";
 import logo from '../../image/mainlogo.png';
-import { useState } from 'react';
+import logo1 from '../../image/mainlogo1.png';
+import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { loginBoxAction } from '../../store/actions/loginbox';
 import { IsLoggedAction } from '../../store/actions/isLogged';
 
-function NavBar() {
+function NavBar(props) {
 
     const dispatch = useDispatch();
     const [isProfile, setProfile] = useState(false);
     const isLoginBox = useSelector(state => state.LoginBoxReducer);
     const isLogged = useSelector(state => state.IsLoggedReducer);
+
+    useEffect(() => {
+        console.log(props.name);
+    });
 
     const clickProfile = () => {
         setProfile(!isProfile);
@@ -70,29 +75,120 @@ function NavBar() {
 
     return (
         <>
-            <Mainnav>
-                <Mainlogo></Mainlogo>
-                <div style={{ marginLeft: '100px' }}>
-                    <ul style={{ display: 'flex' }}>
-                        <li style={{ marginRight: '30px', padding: '5px' }}>숙소</li>
-                        <li style={{ marginRight: '30px', padding: '5px' }}>체험</li>
-                        <li style={{ marginRight: '30px', padding: '5px' }}>온라인 체험</li>
-                    </ul>
-                </div>
-                <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                    <span style={{ marginRight: '18px', fontSize: '14.5px', cursor: 'pointer' }}>{isLogged.isLogged === true ? '호스트 모드로 전환' : '호스트 되기'}</span>
-                    <i className="fas fa-globe" style={{ marginRight: '18px', fontSize: '16px', cursor: 'pointer' }}></i>
-                    <ProfileSelect onClick={clickProfile}>
-                        <i className="fas fa-bars" style={{ color: 'grey', marginRight: '10px' }}></i>
-                        <i className="fas fa-user-circle" style={{ color: 'grey', fontSize: '30px' }}></i>
-                        {isLogged.isLogged === true ? <LoggedDot></LoggedDot> : ''}
-                        {showLink}
-                    </ProfileSelect>
+            <Mainnav name={props.name}>
+                <div className="inner">
+                    <Mainlogo name={props.name}></Mainlogo>
+                    {props.name === 'main' ? <div style={{ marginLeft: '100px' }} className="menu">
+                        <ul style={{ display: 'flex' }}>
+                            <li style={{ marginRight: '30px', padding: '5px' }}>숙소</li>
+                            <li style={{ marginRight: '30px', padding: '5px' }}>체험</li>
+                            <li style={{ marginRight: '30px', padding: '5px' }}>온라인 체험</li>
+                        </ul>
+                    </div> :
+                        <SearchForm>
+                            <SebuForm action='#' width="33%" borderWidth="95%" pLeft="17px" ppLeft="29px">
+                                <input type="text" id="checkin" autoComplete="off" required placeholder="지도 표시 지역" style={{ border: 'none' }} />
+                            </SebuForm>
+                            <SebuForm action='#' width="28%" borderWidth="95%" pLeft="17px" ppLeft="31px">
+                                <input type="text" id="checkout" autoComplete="off" required placeholder="날짜 입력" />
+                            </SebuForm>
+                            <SebuForm action='#' width="39%" borderWidth="95%" pLeft="17px" ppLeft="29px">
+                                <input type="text" id="person" placeholder="게스트 추가" autoComplete="off" required style={{ borderRight: 'none' }} />
+                            </SebuForm>
+                            <SearchIcon>
+                                <i className="fas fa-search" ></i>
+                            </SearchIcon>
+                        </SearchForm>
+                    }
+                    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }} className="global">
+                        <span style={{ marginRight: '18px', fontSize: '14.5px', cursor: 'pointer' }}>{isLogged.isLogged === true ? '호스트 모드로 전환' : '호스트 되기'}</span>
+                        <i className="fas fa-globe" style={{ marginRight: '18px', fontSize: '16px', cursor: 'pointer' }}></i>
+                        <ProfileSelect onClick={clickProfile}>
+                            <i className="fas fa-bars" style={{ color: 'grey', marginRight: '10px' }}></i>
+                            <i className="fas fa-user-circle" style={{ color: 'grey', fontSize: '30px' }}></i>
+                            {isLogged.isLogged === true ? <LoggedDot></LoggedDot> : ''}
+                            {showLink}
+                        </ProfileSelect>
+                    </div>
                 </div>
             </Mainnav>
         </>
     );
 }
+
+const SebuForm = styled.form`
+    display: flex;
+    width: ${props => props.width};
+    height : 100%;
+    justify-content : center;
+    align-items: center;
+    flex-direction : column;
+    box-sizing: border-box;
+    position: relative;
+    border-radius : 30px;
+    padding : 0px ${props => props.pLeft};
+
+    &:hover {
+        background-color: #dedede;
+    }
+
+    &:hover input{
+        background-color: #dedede;
+    }
+
+    input {
+        width:${props => props.borderWidth};
+        height:50%;
+        color: #595959;
+        margin-top: 0px;
+        border: none;
+        font-size : 15px;
+        border-left : 1px solid #dedede;
+        display: flex;
+        padding-top: 0px;
+        padding-left : 17px;
+        outline-style: none;
+    }
+
+    label {
+        position: absolute;
+        bottom: 0px;
+        left: ${props => props.ppLeft};
+        width:100%;
+        font-size : 12px;
+        font-weight : 700;
+        height:75%;
+    }
+`;
+
+const SearchForm = styled.div`
+    width : 35%;
+    height: 4vw;
+    box-sizing : border-box;
+    background-color : white;
+    margin: 0 auto;
+    border-radius: 30px;
+    border : 1px solid lightgrey;
+    display : flex;
+    position : relative;
+    align-items : center;
+    box-shadow: 0px 16px 32px rgb(0 0 0 / 15%), 0px 3px 8px rgb(0 0 0 / 10%) !important;
+`;
+
+const SearchIcon = styled.div`
+    width : 3vw;
+    height : 3vw;
+    background-color : #FF385C;
+    border-radius : 50%;
+    position: absolute;
+    right : 8px;
+    display: flex;
+    font-size : 16px;
+    justify-content : center;
+    align-items : center;
+    color : white;
+    cursor : pointer;
+`;
 
 const LoggedDot = styled.div`
     width: 1vw;
@@ -109,7 +205,7 @@ const LoggedDot = styled.div`
 const Mainlogo = styled.div`
     width: 100px;
     height: 64px;
-    background-image: url(${logo});
+    background-image: url(${props => props.name === 'main' ? logo : logo1});
     background-position: center;
     background-size: 100%;
     background-repeat: no-repeat;
@@ -117,18 +213,32 @@ const Mainlogo = styled.div`
 `;
 
 const Mainnav = styled.div`
-    width:88%;
+    // position : sticky;
+    // top : 0;
+    // left : 0;
+    width:100%;
+    height : 6vw;
+    box-sizing : border-box;
     padding: 5px;
     margin: 0 auto;
-    color:white;
-    display: flex;
-    justify-content:space-between;
-    align-items:center;
+    color: ${props => props.name === 'main' ? 'white' : 'black'};
+    // display: flex;
+    // justify-content:space-between;
+    // align-items:center;
     font-size:1.25vw;
     font-weight:350;
+    ${props => props.name === 'main' ? '' : 'box-shadow: 0px 16px 32px rgb(0 0 0 / 15%), 0px 3px 8px rgb(0 0 0 / 10%) !important;'};
 
     li { 
         cursor : pointer;
+    }
+
+    .inner {
+        width : ${props => props.name === 'main' ? '88%' : '95%'};
+        display: flex;
+        justify-content:space-between;
+        align-items:center;
+        margin: 0 auto;
     }
 `;
 
@@ -140,6 +250,7 @@ const ProfileSelect = styled.div`
     display: flex;
     justify-content:center;
     align-items:center;
+    border : 1px solid lightgrey;
     cursor : pointer;
     position: relative;
 `;

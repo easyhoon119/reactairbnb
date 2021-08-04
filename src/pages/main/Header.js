@@ -1,32 +1,39 @@
 import styled from "styled-components";
 import NavBar from '../../components/common/NavBar';
+import { useHistory } from 'react-router';
 
 
 function Header() {
 
+    const history = useHistory();
+
+    const goSearch = () => {
+        history.push('/search');
+    };
+
     return (
         <>
             <MainonPicture >
-                <NavBar />
+                <NavBar name="main" />
                 <SearchForm >
                     <SebuForm action='#' width="32%" borderWidth="100%" pLeft="25px" ppLeft="31px">
                         <input type="text" id="city" placeholder="어디로 여행가세요?" autoComplete="off" style={{ border: 'none' }} required />
                         <label htmlFor="city">위치</label>
                     </SebuForm>
                     <SebuForm action='#' width="23%" borderWidth="95%" pLeft="17px" ppLeft="29px">
-                        <input type="text" id="checkin" placeholder="날짜 입력" autoComplete="off" required />
+                        <input type="date" id="checkin" autoComplete="off" required />
                         <label htmlFor="checkin">체크인</label>
                     </SebuForm>
-                    <SebuForm action='#' width="23%" borderWidth="95%" pLeft="17px" ppLeft="29px">
-                        <input type="text" id="checkout" placeholder="날짜 입력" autoComplete="off" required />
+                    <SebuForm action='#' width="23%" borderWidth="95%" pLeft="17px" ppLeft="31px">
+                        <input type="date" id="checkout" autoComplete="off" required />
                         <label htmlFor="checkout">체크아웃</label>
                     </SebuForm>
                     <SebuForm action='#' width="24%" borderWidth="95%" pLeft="17px" ppLeft="29px">
                         <input type="text" id="person" placeholder="게스트 추가" autoComplete="off" required style={{ borderRight: 'none' }} />
                         <label htmlFor="person">인원</label>
                     </SebuForm>
-                    <SearchIcon>
-                        <i className="fas fa-search"></i>
+                    <SearchIcon onClick={goSearch}>
+                        <i className="fas fa-search" ></i>
                     </SearchIcon>
                 </SearchForm>
                 <div style={{ position: 'absolute', top: '18vw', left: '7vw' }}>
@@ -41,17 +48,18 @@ function Header() {
 }
 
 const MainonPicture = styled.div`
+    overflow : visible;
     width: 100%;
     height: 47.5vw;
     background-image: url("https://a0.muscache.com/im/pictures/e4a2a61c-589f-4e49-b3b8-968a6bc23389.jpg?im_w=1920");
     background-position: center;
     background-size: cover;
-    position:relative;
+    position : relative;
 `;
 
 const SearchForm = styled.div`
     width : 66%;
-    height: 65px;
+    height: 5.5vw;
     box-sizing : border-box;
     background-color : white;
     margin: 0 auto;
@@ -74,6 +82,7 @@ const SearchIcon = styled.div`
     justify-content : center;
     align-items : center;
     color : white;
+    cursor : pointer;
 `;
 
 const SebuForm = styled.form`
@@ -96,7 +105,7 @@ const SebuForm = styled.form`
         background-color: #dedede;
     }
 
-    input[type='text'] {
+    input {
         width:${props => props.borderWidth};
         height:20%;
         color: #595959;

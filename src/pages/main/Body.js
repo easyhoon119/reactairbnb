@@ -118,7 +118,7 @@ function Body() {
                         <AnywhereSpan>
                             <p>
                                 어디든 상관없이
-                                떠나고 싶을 때에어비앤비가 도와드립니다!
+                                떠나고 싶을 때 에어비앤비가 도와드립니다!
                             </p>
                         </AnywhereSpan>
                         <AnywhereButton>유연한 검색</AnywhereButton>
