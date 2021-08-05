@@ -36,7 +36,7 @@ function LoginModal() {
 
         try {
             console.log(1);
-            const url = "https://prod.devsanha.site/app/login";
+            const url = "https://dev.devsanha.site/app/login";
 
             const res = await axios({
                 method: 'post',
@@ -70,7 +70,7 @@ function LoginModal() {
     const goLogin = async () => {
 
         try {
-            const url = "https://prod.devsanha.site/app/login";
+            const url = "https://dev.devsanha.site/app/login";
 
             const res = await axios({
                 method: 'post',
@@ -91,6 +91,7 @@ function LoginModal() {
                 setName(res.data.result.name);
                 closeModal();
                 console.log(res.data);
+                localStorage.setItem('jwt', res.data.result.jwt);
             }
 
             else if (res.data.code === 3004) {

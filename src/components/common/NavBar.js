@@ -33,6 +33,7 @@ function NavBar(props) {
     };
 
     const goLogout = () => {
+        localStorage.clear();
         dispatch(IsLoggedAction({
             isLogged: false
         }));
@@ -240,7 +241,7 @@ const Mainnav = styled.div`
     }
 
     .inner {
-        width : ${props => props.name === 'main' ? '88%' : '95%'};
+        width : ${props => props.name === 'main' || props.name === 'detail' ? '88%' : '95%'};
         display: flex;
         justify-content:space-between;
         align-items:center;

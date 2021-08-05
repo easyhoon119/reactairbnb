@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { useHistory } from 'react-router';
 
 function AroundRoom() {
 
@@ -43,8 +44,14 @@ function AroundRoom() {
         explain: '광안대교 오션뷰♥테라스♥코로나 방역소독!!'
     }];
 
+    const history = useHistory();
+
+    const goDetail = () => {
+        history.push('/detail');
+    };
+
     const spread = rooms.map((item, index) => (
-        <SpreadRoom key={index}>
+        <SpreadRoom key={index} onClick={goDetail}>
             <img src={item.image} alt="around" />
             <div style={{ width: '100%' }}>
                 <div style={{ display: 'flex', width: '100%', justifyContent: 'space-between' }}>
@@ -79,6 +86,7 @@ const SpreadRoom = styled.div`
     padding : 1.7vw 0;
     border-bottom : 1px solid #d5d5d5;
     display : flex;
+    cursor: pointer;
 
     img {
         width : 24vw;

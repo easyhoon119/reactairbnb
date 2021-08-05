@@ -1,7 +1,15 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router';
 
 function DisplaySearch(props) {
+
+    const history = useHistory();
+
+    const goDetail = () => {
+        history.push('/detail');
+    };
+
     return (
         <ContentSearch top={props.top}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
@@ -13,7 +21,7 @@ function DisplaySearch(props) {
                 </div>
             </div>
             <div style={{ marginTop: '1vw', display: 'flex' }}>
-                <div style={{ marginRight: '1vw' }}>
+                <div style={{ marginRight: '1vw', cursor: 'pointer' }} onClick={goDetail}>
                     <img src="https://a0.muscache.com/im/pictures/miso/Hosting-45108659/original/6986de8c-d3ae-4ba4-aebb-14830bdb00bb.jpeg?im_w=480" alt="search" />
                     <div style={{ display: 'flex', fontSize: '1.1vw', marginTop: '0.5vw', alignItems: 'center' }}>
                         <i className="fas fa-star" style={{ color: 'red', marginRight: '0.3vw' }}></i>
@@ -23,7 +31,7 @@ function DisplaySearch(props) {
                     <p style={{ marginTop: '0.8vw' }}>공동 주택(콘도) 전체...</p>
                     <p style={{ overflow: 'hidden', whiteSpace: 'nowrap', textOverflow: 'ellipsis', width: '17.5vw', padding: '0.5vw 0' }}>'숲' #광안리파노라마뷰 #광안리10초 #Netflix #최대3명</p>
                 </div>
-                <div style={{ marginRight: '1vw' }}>
+                <div style={{ marginRight: '1vw', cursor: 'pointer' }} onClick={goDetail}>
                     <img src="https://a0.muscache.com/im/pictures/f6d20fef-f708-4ff1-823f-5dcc07b001f5.jpg?im_w=480" alt="search" />
                     <div style={{ display: 'flex', fontSize: '1.1vw', marginTop: '0.5vw', alignItems: 'center' }}>
                         <i className="fas fa-star" style={{ color: 'red', marginRight: '0.3vw' }}></i>
@@ -33,7 +41,7 @@ function DisplaySearch(props) {
                     <p style={{ marginTop: '0.8vw' }}>공동 주택 전체...</p>
                     <p style={{ overflow: 'hidden', whiteSpace: 'nowrap', textOverflow: 'ellipsis', width: '17.5vw', padding: '0.5vw 0' }}>✔️New/Gwangan Beach/넷플릭스/파노라마 정면 뷰/청결/광안대교오션뷰/일출</p>
                 </div>
-                <div>
+                <div style={{ cursor: 'pointer' }} onClick={goDetail}>
                     <img src="https://a0.muscache.com/im/pictures/9f84bcf7-4acb-4d00-9c96-c5794cc9048f.jpg?im_w=480" alt="search" />
                     <div style={{ display: 'flex', fontSize: '1.1vw', marginTop: '0.5vw', alignItems: 'center' }}>
                         <i className="fas fa-star" style={{ color: 'red', marginRight: '0.3vw' }}></i>

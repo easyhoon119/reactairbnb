@@ -6,10 +6,23 @@ import Body from './Body';
 import Footer from '../../components/common/Footer';
 import LoginModal from '../../components/common/LoginModal';
 import { useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { IsLoggedAction } from '../../store/actions/isLogged';
 
 const IndexPage = () => {
 
     const isLoginBox = useSelector(state => state.LoginBoxReducer);
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        const jwt = localStorage.getItem('jwt');
+        if (jwt) {
+            dispatch(IsLoggedAction({
+                isLogged: true
+            }));
+        }
+    }, [])
 
     return (
         <PageWrap>

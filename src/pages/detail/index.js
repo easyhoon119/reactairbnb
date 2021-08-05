@@ -2,13 +2,13 @@ import NavBar from '../../components/common/NavBar';
 import { PageWrap } from '../../components/common/styled';
 import LoginModal from '../../components/common/LoginModal';
 import { useSelector } from 'react-redux';
-import Body from './Body';
-import Footer from '../../components/common/Footer';
-import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { IsLoggedAction } from '../../store/actions/isLogged';
+import { useEffect } from 'react';
+import Body from './Body';
+import Footer from '../../components/common/Footer';
 
-function SearchPage() {
+function DetailPage() {
 
     const isLoginBox = useSelector(state => state.LoginBoxReducer);
     const dispatch = useDispatch();
@@ -21,16 +21,16 @@ function SearchPage() {
                 isLogged: true
             }))
         }
-    }, []);
+    });
 
     return (
         <PageWrap>
-            <NavBar name="search" />
+            <NavBar name="detail"></NavBar>
             {isLoginBox.isLoginBox === true ? <LoginModal /> : ''}
             <Body />
             <Footer />
         </PageWrap>
     );
-}
+};
 
-export default SearchPage
+export default DetailPage
