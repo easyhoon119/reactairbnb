@@ -5,6 +5,7 @@ import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { loginBoxAction } from '../../store/actions/loginbox';
 import { IsLoggedAction } from '../../store/actions/isLogged';
+import { useHistory } from 'react-router';
 
 function NavBar(props) {
 
@@ -12,6 +13,7 @@ function NavBar(props) {
     const [isProfile, setProfile] = useState(false);
     const isLoginBox = useSelector(state => state.LoginBoxReducer);
     const isLogged = useSelector(state => state.IsLoggedReducer);
+    const history = useHistory();
 
     useEffect(() => {
         console.log(props.name);
@@ -69,6 +71,10 @@ function NavBar(props) {
         </>
         ;
 
+    const goHome = () => {
+        history.push('/');
+    };
+
     const showLink = isProfile === true ? <ProfileLink>
         {loggedLink}
     </ProfileLink> : '';
@@ -77,7 +83,7 @@ function NavBar(props) {
         <>
             <Mainnav name={props.name}>
                 <div className="inner">
-                    <Mainlogo name={props.name}></Mainlogo>
+                    <Mainlogo name={props.name} onClick={goHome}></Mainlogo>
                     {props.name === 'main' ? <div style={{ marginLeft: '100px' }} className="menu">
                         <ul style={{ display: 'flex' }}>
                             <li style={{ marginRight: '30px', padding: '5px' }}>숙소</li>
