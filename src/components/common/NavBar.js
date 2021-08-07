@@ -76,6 +76,10 @@ function NavBar(props) {
         history.push('/');
     };
 
+    const goHost = () => {
+        history.push('/hosting');
+    };
+
     const showLink = isProfile === true ? <ProfileLink>
         {loggedLink}
     </ProfileLink> : '';
@@ -108,7 +112,9 @@ function NavBar(props) {
                         </SearchForm>
                     }
                     <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }} className="global">
-                        <span style={{ marginRight: '18px', fontSize: '14.5px', cursor: 'pointer' }}>{isLogged.isLogged === true ? '호스트 모드로 전환' : '호스트 되기'}</span>
+                        <div className="hostMake">
+                            <span style={{ fontSize: '14.5px', cursor: 'pointer' }} onClick={goHost}>{isLogged.isLogged === true ? '호스트 모드로 전환' : '호스트 되기'}</span>
+                        </div>
                         <i className="fas fa-globe" style={{ marginRight: '18px', fontSize: '16px', cursor: 'pointer' }}></i>
                         <ProfileSelect onClick={clickProfile}>
                             <i className="fas fa-bars" style={{ color: 'grey', marginRight: '10px' }}></i>
@@ -246,6 +252,20 @@ const Mainnav = styled.div`
         justify-content:space-between;
         align-items:center;
         margin: 0 auto;
+    }
+
+    .hostMake {
+        display : flex;
+        justify-content : center;
+        align-items : center;
+        width : 11vw;
+        height : 3vw;
+        border-radius : 15px;
+        margin-right : 1vw;
+    }
+
+    .hostMake:hover {
+        background-color : rgba(125,125,125,0.5);
     }
 `;
 

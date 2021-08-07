@@ -21,7 +21,7 @@ function DetailPage() {
                 isLogged: true
             }))
         }
-    });
+    }, []);
 
     return (
         <PageWrap>

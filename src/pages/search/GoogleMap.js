@@ -6,12 +6,17 @@ function GoogleMap(props) {
         height: '88.7vh'
     }
 
+    const detailStyle = {
+        width: '87%',
+        height: '70%'
+    }
+
     return (
         <>
             <Map
-                style={mapStyle}
+                style={props.name === 'detail' ? detailStyle : mapStyle}
                 google={props.google}
-                zoom={12}
+                zoom={props.name === 'detail' ? 17 : 12}
                 center={{ lat: '35.1379222', lng: '129.05562775' }}
                 initialCenter={{ lat: '35.1379222', lng: '129.05562775' }}
             >

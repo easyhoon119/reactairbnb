@@ -15,14 +15,23 @@ function StickyDate() {
                     <div style={{ marginTop: '2vw', width: '100%' }}>
                         <div style={{ display: 'flex' }}>
                             <div style={{ border: '1px solid lightgray', width: '50%', height: '4.5vw', borderTopLeftRadius: '5px' }}>
-                                hih
+                                <SebuForm action="#" left="0.75">
+                                    <input type="date" id="checkin" autoComplete="off" />
+                                    <label htmlFor="checkin">체크인</label>
+                                </SebuForm>
                             </div>
                             <div style={{ border: '1px solid lightgray', width: '50%', height: '4.5vw', borderTopRightRadius: '5px' }}>
-                                hihi
+                                <SebuForm action="#" left="0.75">
+                                    <input type="date" id="checkout" autoComplete="off" />
+                                    <label htmlFor="checkout">체크아웃</label>
+                                </SebuForm>
                             </div>
                         </div>
-                        <div style={{ border: '1px solid lightgray', width: '99.2%', height: '4.5vw', borderBottomRightRadius: '5px', borderBottomLeftRadius: '5px' }}>
-                            hihi
+                        <div style={{ border: '1px solid lightgray', width: '100.5%', height: '4.5vw', borderBottomRightRadius: '5px', borderBottomLeftRadius: '5px' }}>
+                            <SebuForm action="#" left="1.2">
+                                <input type="text" id="people" autoComplete="off" placeholder="게스트 1명" />
+                                <label htmlFor="people">인원</label>
+                            </SebuForm>
                         </div>
                     </div>
                     <div style={{ width: '100%', height: '3.5vw', background: 'linear-gradient(to right, rgb(230, 30, 77) 0%, rgb(227, 28, 95) 50%, rgb(215, 4, 102) 100%)', borderRadius: '7px', color: 'white', display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '1.4vw' }}>예약 가능 여부 보기</div>
@@ -47,13 +56,48 @@ const StickySelect = styled.div`
     top : 10vw;
 
     .inner {
-        width : 28vw;
+        width : 29.5vw;
         height : 27vw;
         box-sizing : border-box;
         padding : 2.5vw;
         border : 1px solid lightgray;
         box-shadow: 0px 16px 32px rgb(0 0 0 / 15%), 0px 3px 8px rgb(0 0 0 / 10%) !important;
         border-radius  : 15px;
+    }
+`;
+
+const SebuForm = styled.form`
+    display: flex;
+    width: 100%;
+    height : 100%;
+    justify-content : center;
+    align-items: center;
+    flex-direction : column;
+    box-sizing: border-box;
+    position: relative;
+    border-radius : 30px;
+    padding : 0px;
+
+    input {
+        width:90%;
+        height:25%;
+        color: #595959;
+        margin-top: 0px;
+        border: none;
+        font-size : 1vw;
+        display: flex;
+        padding-top: 20px;
+        outline-style: none;
+    }
+
+    label {
+        position: absolute;
+        bottom: 0px;
+        left: ${props => props.left}vw;
+        width:100%;
+        font-size : 12px;
+        font-weight : 700;
+        height:75%;
     }
 `;
 
