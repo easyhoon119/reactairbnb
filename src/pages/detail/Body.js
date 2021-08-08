@@ -138,7 +138,7 @@ function Body() {
                     </div>
                     <div style={{ marginTop: '3vw' }}>
                         <p style={{ fontSize: '1.5vw', fontWeight: '500' }}>Millak dong, Suyeong-gu, 부산, 한국</p>
-                        <p style={{ marginTop: '1.5vw', textOverflow: 'ellipsis', lineHeight: '1.8vw', whiteSpace: 'nowrap', overflow: 'hidden', width: '21%', overflow: 'hidden', height: '5vw' }}>
+                        <p style={{ marginTop: '1.5vw', textOverflow: 'ellipsis', lineHeight: '1.8vw', whiteSpace: 'nowrap', width: '21%', overflow: 'hidden', height: '5vw' }}>
                             - 민락 회센터 도보 20초<br />
                             - 24시 마트 건물 1층에 위치<br />
                             - 광안리 해수욕장 도보 2분에 위치하여 인접

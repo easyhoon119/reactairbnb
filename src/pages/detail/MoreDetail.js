@@ -31,7 +31,7 @@ function MoreDetail() {
                     <i className="fas fa-hand-sparkles"></i>
                     <div style={{ marginLeft: '1.5vw', fontSize: '1.3vw' }}>
                         <p style={{ fontWeight: '500' }}>청결 강화</p>
-                        <p style={{ color: 'gray', fontSize: '1.1vw', marginTop: '0.7vw' }}>에어비앤비의 강화된 5단계 청소 절차를 준수하겠다고 동의한 호스트입니다.<Link to="#" style={{ color: 'inherit', color: 'black' }}>더보기</Link></p>
+                        <p style={{ color: 'gray', fontSize: '1.1vw', marginTop: '0.7vw' }}>에어비앤비의 강화된 5단계 청소 절차를 준수하겠다고 동의한 호스트입니다.<Link to="#" style={{ color: 'black' }}>더보기</Link></p>
                     </div>
                 </div>
                 <div style={{ display: 'flex', alignItems: 'center', marginBottom: '2.5vw' }}>

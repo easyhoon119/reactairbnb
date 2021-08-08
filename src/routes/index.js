@@ -5,6 +5,7 @@ import NoMatchPage from "../pages/noMatch"
 import SearchPage from '../pages/search'
 import DetailPage from '../pages/detail'
 import HostingPage from '../pages/hosting'
+import InsightPage from '../pages/hostInsight'
 
 const RootRoute = () => {
 
@@ -18,6 +19,7 @@ const RootRoute = () => {
                 <Route path='/search' component={SearchPage} exact key="search" />
                 <Route path='/detail' component={DetailPage} exact key="detail" />
                 <Route path='/hosting' component={HostingPage} exact key="hosting" />
+                <Route path='/hosting/insight' component={InsightPage} key="insight" />
                 {/* 경로가 유효하지 않을 때 */}
                 <Route path='*' component={NoMatchPage} key="noMatch" />
 

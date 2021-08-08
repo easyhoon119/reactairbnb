@@ -2,10 +2,10 @@ import { PageWrap } from '../../components/common/styled';
 import styled from 'styled-components';
 import logo2 from '../../image/mainlogo2.png'
 import { useHistory } from 'react-router';
-import Body from './Body';
 import Footer from '../../components/common/Footer';
+import Body from './Body';
 
-function HostingPage() {
+function InsightPage() {
 
     const history = useHistory();
 
@@ -32,7 +32,7 @@ function HostingPage() {
                         <div style={{ marginRight: '1vw', borderRadius: '20px', width: '5vw', height: '3vw' }} className="hosnav">
                             달력
                         </div>
-                        <div style={{ marginRight: '1vw', borderRadius: '20px', width: '5vw', height: '3vw' }} className="hosnav" onClick={goInsight}>
+                        <div style={{ marginRight: '1vw', borderRadius: '20px', width: '5vw', height: '3vw' }} onClick={goInsight} className="hosnav">
                             인사이트
                         </div>
                         <div style={{ marginRight: '1vw', borderRadius: '20px', width: '5vw', height: '3vw' }} className="hosnav">
@@ -101,4 +101,4 @@ const Mainlogo = styled.div`
     cursor: pointer;
 `;
 
-export default HostingPage
+export default InsightPage
