@@ -243,6 +243,7 @@ const HostingSearch = styled.div`
     height : 30vw;
     margin : 0 auto;
     margin-top : 4vw;
+    margin-bottom : 5vw;
     border-radius : 8px;
     position : relative;
 `;

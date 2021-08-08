@@ -3,7 +3,7 @@ import { Map, GoogleApiWrapper, Marker } from 'google-maps-react';
 function GoogleMap(props) {
     const mapStyle = {
         width: '40%',
-        height: '88.7vh'
+        height: '90vh'
     }
 
     const detailStyle = {

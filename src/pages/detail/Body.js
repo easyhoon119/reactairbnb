@@ -148,7 +148,7 @@ function Body() {
                         <Link to="#">더 보기 <i className="fas fa-chevron-right"></i></Link>
                     </div>
                 </BodyContent>
-                <BodyContent style={{ paddingBottom: '0px', border: 'none' }}>
+                <BodyContent style={{ border: 'none' }}>
                     <div style={{ display: 'flex', alignItems: 'center' }}>
                         <img style={{ width: '6vw', marginRight: '1.3vw', height: '6vw', borderRadius: '50%' }} src="https://a0.muscache.com/im/pictures/user/e9722c98-aef1-4421-8b36-fefbe749a986.jpg?im_w=240" alt="reivew" />
                         <div>

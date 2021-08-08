@@ -90,11 +90,10 @@ function Body() {
 const SearchBody = styled.div`
     display: flex;
     width : 100%;
-    height : 80vh;
+    height : 90vh;
 
     .content {
         width: 60%;
-        height : 100%;
         padding-top : 4vw;
         overflow : scroll;
         -ms-overflow-style : none;

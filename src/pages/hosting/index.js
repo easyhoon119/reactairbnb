@@ -2,6 +2,8 @@ import { PageWrap } from '../../components/common/styled';
 import styled from 'styled-components';
 import logo2 from '../../image/mainlogo2.png'
 import { useHistory } from 'react-router';
+import Body from './Body';
+import Footer from '../../components/common/Footer';
 
 function HostingPage() {
 
@@ -16,18 +18,24 @@ function HostingPage() {
             <MainNav>
                 <div className="inner">
                     <Mainlogo onClick={goHome}></Mainlogo>
-                    <div style={{ display: 'flex' }}>
-                        <div style={{ marginRight: '2vw' }}>
+                    <div style={{ display: 'flex', color: 'gray', fontSize: '1.25vw' }}>
+                        <div style={{ marginRight: '1vw', borderRadius: '20px', width: '5vw', height: '3vw' }} className="hosnav">
                             투데이
                         </div>
-                        <div style={{ marginRight: '2vw' }}>
-                            투데이
+                        <div style={{ marginRight: '1vw', borderRadius: '20px', width: '5vw', height: '3vw' }} className="hosnav">
+                            메세지
                         </div>
-                        <div style={{ marginRight: '2vw' }}>
-                            투데이
+                        <div style={{ marginRight: '1vw', borderRadius: '20px', width: '5vw', height: '3vw' }} className="hosnav">
+                            달력
                         </div>
-                        <div style={{ marginRight: '2vw' }}>
-                            투데이
+                        <div style={{ marginRight: '1vw', borderRadius: '20px', width: '5vw', height: '3vw' }} className="hosnav">
+                            인사이트
+                        </div>
+                        <div style={{ marginRight: '1vw', borderRadius: '20px', width: '5vw', height: '3vw' }} className="hosnav">
+                            <form action="#">
+                                <input type="checkbox" id="menu" />
+                                <label htmlFor="menu"><span style={{ marginRight: '0.5vw' }}>메뉴</span><i style={{ fontSize: '1vw' }} className="fas fa-chevron-down"></i></label>
+                            </form>
                         </div>
                     </div>
                     <div style={{ width: '4vw', height: '4vw', border: '1px solid lightgray', borderRadius: '50%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
@@ -35,6 +43,8 @@ function HostingPage() {
                     </div>
                 </div>
             </MainNav>
+            <Body />
+            <Footer />
         </PageWrap>
     );
 };
@@ -59,6 +69,20 @@ const MainNav = styled.div`
         justify-content:space-between;
         align-items:center;
         margin: 0 auto;
+    }
+
+    .hosnav {
+        display : flex;
+        justify-content : center;
+        align-items : center;
+    }
+
+    .hosnav:hover {
+        background-color : rgba(225,225,225,0.5);
+    }
+
+    input[id="menu"] {
+        display:none;
     }
 `;
 

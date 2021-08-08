@@ -89,7 +89,6 @@ function Footer() {
 const FooterInfo = styled.div`
     background-color: #F7F7F7;
     border-top: 1px solid #DDDDDD;
-    margin-top : 5vw;
     width:100%;
 
     .inner {
