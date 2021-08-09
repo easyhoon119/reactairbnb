@@ -151,7 +151,7 @@ function Body() {
 const BodySection = styled.div`
     width : 88%;
     margin: 0 auto;
-    margin-top : 7vw;
+    margin-top : 5vw;
 `;
 
 const NearKorea = styled.div`

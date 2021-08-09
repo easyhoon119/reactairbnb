@@ -12,9 +12,11 @@ function SearchPage() {
 
     const isLoginBox = useSelector(state => state.LoginBoxReducer);
     const dispatch = useDispatch();
+    const SearchData = useSelector(state => state.SearchReducer);
 
     useEffect(() => {
         const jwt = localStorage.getItem('jwt');
+        console.log(SearchData);
 
         if (jwt) {
             dispatch(IsLoggedAction({

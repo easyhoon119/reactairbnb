@@ -6,18 +6,40 @@ import { useDispatch, useSelector } from 'react-redux';
 import { loginBoxAction } from '../../store/actions/loginbox';
 import { IsLoggedAction } from '../../store/actions/isLogged';
 import { useHistory } from 'react-router';
+import { useRef } from 'react';
 
 function NavBar(props) {
 
     const dispatch = useDispatch();
     const [isProfile, setProfile] = useState(false);
+    const [pos, setPos] = useState(0);
+    const logoed = useRef();
+    const Headerscroll = useRef();
     const isLoginBox = useSelector(state => state.LoginBoxReducer);
     const isLogged = useSelector(state => state.IsLoggedReducer);
     const history = useHistory();
 
+    const updateScroll = () => {
+        if (Headerscroll.current && props.name == 'main') {
+            setPos(Headerscroll.current.getBoundingClientRect());
+            if (pos.top + window.pageYOffset > 0) {
+                Headerscroll.current.style.backgroundColor = 'white';
+                Headerscroll.current.style.color = 'black';
+                logoed.current.style.backgroundImage = `url(${logo1})`;
+            }
+            else {
+                Headerscroll.current.style.backgroundColor = '';
+                Headerscroll.current.style.color = 'white';
+                logoed.current.style.backgroundImage = `url(${logo})`;
+            }
+        }
+    };
+
     useEffect(() => {
-        console.log(props.name);
-    });
+        window.addEventListener('scroll', updateScroll);
+
+        return () => window.removeEventListener('scroll', updateScroll);
+    }, [pos]);
 
     const clickProfile = () => {
         setProfile(!isProfile);
@@ -39,6 +61,10 @@ function NavBar(props) {
         }));
     };
 
+    const goAccount = () => {
+        history.push('/account');
+    }
+
     const loggedLink = isLogged.isLogged === true ?
         <>
             <div style={{ borderBottom: '1px solid #dedede', paddingTop: '1vw' }}>
@@ -51,7 +77,7 @@ function NavBar(props) {
                 <p>숙소 관리</p>
                 <p>체험 호스팅하기</p>
                 <p>호스트 추천하기</p>
-                <p>계정</p>
+                <p onClick={goAccount}>계정</p>
             </div>
             <div style={{ paddingBottom: '1vw', marginTop: '0.5vw' }}>
                 <p>도움말</p>
@@ -86,17 +112,17 @@ function NavBar(props) {
 
     return (
         <>
-            <Mainnav name={props.name}>
+            <Mainnav ref={Headerscroll} name={props.name}>
                 <div className="inner">
-                    <Mainlogo name={props.name} onClick={goHome}></Mainlogo>
-                    {props.name === 'main' ? <div style={{ marginLeft: '100px' }} className="menu">
+                    <Mainlogo ref={logoed} name={props.name} onClick={goHome}></Mainlogo>
+                    {props.name === 'main' ? <div style={{ marginLeft: '14vw' }} className="menu">
                         <ul style={{ display: 'flex' }}>
                             <li style={{ marginRight: '30px', padding: '5px' }}>숙소</li>
                             <li style={{ marginRight: '30px', padding: '5px' }}>체험</li>
                             <li style={{ marginRight: '30px', padding: '5px' }}>온라인 체험</li>
                         </ul>
                     </div> :
-                        <SearchForm>
+                        <SearchForm name={props.name}>
                             <SebuForm action='#' width="33%" borderWidth="95%" pLeft="17px" ppLeft="29px">
                                 <input type="text" id="checkin" autoComplete="off" required placeholder="지도 표시 지역" style={{ border: 'none' }} />
                             </SebuForm>
@@ -183,6 +209,7 @@ const SearchForm = styled.div`
     border-radius: 30px;
     border : 1px solid lightgrey;
     display : flex;
+    ${props => props.name === 'account' ? 'display : none' : ''};
     position : relative;
     align-items : center;
     box-shadow: 0px 16px 32px rgb(0 0 0 / 15%), 0px 3px 8px rgb(0 0 0 / 10%) !important;
@@ -226,9 +253,7 @@ const Mainlogo = styled.div`
 `;
 
 const Mainnav = styled.div`
-    // position : sticky;
-    // top : 0;
-    // left : 0;
+    ${props => props.name === 'main' ? 'position : fixed; top:0; left:0; z-index:1000;' : ''};
     width:100%;
     height : 6vw;
     box-sizing : border-box;
@@ -247,7 +272,7 @@ const Mainnav = styled.div`
     }
 
     .inner {
-        width : ${props => props.name === 'main' || props.name === 'detail' ? '88%' : '95%'};
+        width : ${props => props.name === 'main' || props.name === 'detail' || props.name === 'account' ? '88%' : '95%'};
         display: flex;
         justify-content:space-between;
         align-items:center;

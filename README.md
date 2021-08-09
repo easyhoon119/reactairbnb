@@ -83,3 +83,15 @@
 - 조회수 탭 페이지 제작
 - chartjs 라이브러리를 이용하여 그래프 구현
 - 오늘 시간이 재일 많이 들었던것은 chartjs를 꾸미는것이었고, reset.css가 새로고침되면 자꾸 사라지는 것이었다. chartjs는 중요도가 낮기에 우선은 넘겨두었고, reser.css는 %PUBLIC_URL%/을 써서 해결하였다.
+
+## 2021-08-10 개발일지
+
+- 서버 개발자와의 회의(Api 상호 조율 및 개발 진행 상황 체크)
+- navbar scroll시 background-color 변경
+- redux를 이용하여 검색할 내용 저장(Search Action 사용)
+- 인사이트 페이지의 후기 탭 페이지 제작
+- 인사이트 페이지의 수입 탭 페이지 제작
+- 홈페이지 logo와 title 지정
+- redux를 이용하여 user 정보 관리(UserInfo Action 사용)
+- 계정 페이지 추가
+- redux에서 꽤나 애를 먹었다. 기존의 reduce에 변수를 추가할려했는데 잘 안되어서 새로운것을 추가하니 잘 동작하였다.

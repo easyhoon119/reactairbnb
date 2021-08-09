@@ -10,6 +10,8 @@ function Body() {
     const history = useHistory();
     const develop = useRef();
     const numof = useRef();
+    const rev = useRef();
+    const inco = useRef();
 
     const numofdata = [{
         num: '0',
@@ -62,6 +64,26 @@ function Body() {
         ]
     };
 
+    const data1 = {
+        labels: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
+        datasets: [
+            {
+                label: '지급 완료',
+                data: [],
+                fill: false,
+                backgroundColor: "rgba(75,192,192,0.2)",
+                borderColor: "rgba(75,192,192,1)",
+            },
+            {
+                label: '지급 예정',
+                data: [],
+                fill: false,
+                backgroundColor: "rgba(0,0,0,0.2)",
+                borderColor: "rgba(0,0,0,1)",
+            }
+        ]
+    };
+
     const option = {
 
         maintainAspectRatio: false,
@@ -97,12 +119,32 @@ function Body() {
         history.push('/hosting/insight');
         numof.current.classList.remove('clicked');
         develop.current.classList.add('clicked');
+        rev.current.classList.remove('clicked');
+        inco.current.classList.remove('clicked');
     };
 
     const goNumreview = () => {
         history.push('/hosting/insight/numofreivew');
         numof.current.classList.add('clicked');
         develop.current.classList.remove('clicked');
+        rev.current.classList.remove('clicked');
+        inco.current.classList.remove('clicked');
+    };
+
+    const goReivew = () => {
+        history.push('/hosting/insight/reivew');
+        numof.current.classList.remove('clicked');
+        develop.current.classList.remove('clicked');
+        rev.current.classList.add('clicked');
+        inco.current.classList.remove('clicked');
+    };
+
+    const goIncome = () => {
+        history.push('/hosting/insight/income');
+        numof.current.classList.remove('clicked');
+        develop.current.classList.remove('clicked');
+        rev.current.classList.remove('clicked');
+        inco.current.classList.add('clicked');
     };
 
     return (
@@ -110,8 +152,8 @@ function Body() {
             <div className="inner">
                 <div style={{ display: 'flex', width: '100%', borderBottom: '1px solid lightgray', marginTop: '2.5vw', fontSize: '1.15vw' }} className="selectoption">
                     <p ref={develop} className="clicked" onClick={goDevelope}>발전 기회</p>
-                    <p>후기</p>
-                    <p>수입</p>
+                    <p ref={rev} onClick={goReivew}>후기</p>
+                    <p ref={inco} onClick={goIncome}>수입</p>
                     <p ref={numof} onClick={goNumreview}>조회수</p>
                     <p>슈퍼호스트</p>
                     <p>청소</p>
@@ -144,6 +186,104 @@ function Body() {
                         </div>
                     </div>
                 </Route>
+                <Route path="/hosting/insight/reivew" exact>
+                    <div style={{ display: 'flex', paddingBottom: '3vw' }}>
+                        <div style={{ width: '63%' }}>
+                            <div style={{ marginTop: '4.5vw' }}>
+                                <div style={{ display: 'flex' }} className="starFillter">
+                                    <div className="clicked">모두</div>
+                                    <div>5<i className="fas fa-star"></i></div>
+                                    <div>4<i className="fas fa-star"></i></div>
+                                    <div>3<i className="fas fa-star"></i></div>
+                                    <div>2<i className="fas fa-star"></i></div>
+                                    <div>1<i className="fas fa-star"></i></div>
+                                </div>
+                            </div>
+                            <div style={{ marginTop: '2.3vw' }}>
+                                <p style={{ fontSize: '1.8vw', fontWeight: '500' }}>아직 후기 없음</p>
+                                <p style={{ marginTop: '0.5vw', fontSize: '1.1vw', color: 'gray' }}>첫 번째 후기를 받으면 여기에 표시됩니다.</p>
+                            </div>
+                            <div className="reviewBox" style={{ marginTop: '2vw' }}>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                            </div>
+                        </div>
+                        <div style={{ width: '37%', marginTop: '15vw', display: 'flex', paddingLeft: '5vw' }}>
+                            <div style={{ marginRight: '8vw' }}>
+                                <div style={{ display: 'flex', alignItems: 'center', marginBottom: '0,5vw' }}>
+                                    <p style={{ fontSize: '3.5vw', fontWeight: '600', marginRight: '0.3vw' }}>0</p>
+                                    <i style={{ fontSize: '1.7vw', color: 'gold', paddingBottom: '0.8vw' }} className="fas fa-star"></i>
+                                </div>
+                                <p>전체 평점</p>
+                            </div>
+                            <div>
+                                <p style={{ fontSize: '3.5vw', fontWeight: '600' }}>0</p>
+                                <p>총 후기수</p>
+                            </div>
+                        </div>
+                    </div>
+                </Route>
+                <Route path="/hosting/insight/income" exact>
+                    <div style={{ marginTop: '4vw' }}>
+                        <p style={{ fontSize: '1.3vw' }}>월 선택</p>
+                        <div style={{ marginTop: '1vw' }}>
+                            <select name="month" className="monthSelect">
+                                <option value="">월 선택</option>
+                                <option value="">English</option>
+                            </select>
+                        </div>
+                        <div style={{ marginTop: '5vw' }}>
+                            <div style={{ display: 'flex', alignItems: 'center', fontSize: '2.8vw', fontWeight: '600', marginBottom: '1vw' }}>
+                                <i style={{ paddingBottom: '0.5vw', marginRight: '0.2vw' }} className="fas fa-won-sign"></i>
+                                <p style={{ fontSize: '3.5vw' }}>0</p>
+                            </div>
+                            <p style={{ color: 'gray', fontSize: '1.3vw' }}>2021 예약 수입</p>
+                        </div>
+                        <div style={{ marginTop: '3vw', width: '67%' }}>
+                            <Line data={data1} width={200} height={250} options={option} />
+                        </div>
+                        <div style={{ marginTop: '4vw' }} className="incomedetail">
+                            <div>
+                                <p style={{ fontSize: '1.8vw', fontWeight: '700', color: 'black' }}>2021 세부정보</p>
+                            </div>
+                            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                                <p>현재 등록된 속소가 없습니다.</p>
+                            </div>
+                            <div>
+                                <p>숙소비</p>
+                            </div>
+                            <div>
+                                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                                    <p>청소비</p>
+                                    <div style={{ display: 'flex', alignItems: 'center' }}>
+                                        <i style={{ paddingBottom: '0.3vw', marginRight: '0.1vw' }} className="fas fa-won-sign"></i>
+                                        <p style={{ fontSize: '1.5vw' }}>0</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <div style={{ display: 'flex', marginBottom: '1vw', alignItems: 'center', justifyContent: 'space-between' }}>
+                                    <p>취소 수수료</p>
+                                    <div style={{ display: 'flex', alignItems: 'center' }}>
+                                        <i style={{ paddingBottom: '0.3vw', marginRight: '0.1vw' }} className="fas fa-won-sign"></i>
+                                        <p style={{ fontSize: '1.5vw' }}>0</p>
+                                    </div>
+                                </div>
+                                <p style={{ fontSize: '1.15vw' }}>2021에 발생</p>
+                            </div>
+                            <div>
+                                <Link to="#" style={{ color: 'darkgreen', textDecoration: 'none' }}>대금 수령 내역 보기</Link>
+                            </div>
+                            <div style={{ border: 'none' }}>
+                                <Link to="#" style={{ color: 'darkgreen', textDecoration: 'none' }}>세금 정보 보기</Link>
+                            </div>
+                        </div>
+                    </div>
+                    <div style={{ margin: '2vw 0 7vw 0' }}>
+                        <Link to="#" style={{ color: 'inherit', fontSize: '1.1vw' }}>피드백 보내기</Link>
+                    </div>
+                </Route>
             </div>
         </InsightContent>
     );
@@ -166,7 +306,54 @@ const InsightContent = styled.div`
     }
 
     .selectoption p.clicked {
-        border-bottom : 1px solid black;
+        border-bottom : 1.5px solid black;
+    }
+
+    .starFillter div {
+        border : 1px solid #eeeeee;
+        width : 3.8vw;
+        height : 2.6vw;
+        display : flex;
+        font-size : 1.1vw;
+        justify-content : center;
+        align-items : center;
+        color : #eeeeee;
+    }
+
+    .starFillter div.clicked {
+        border-bottom : 2px solid green;
+        color : green;
+    }
+
+    .starFillter i {
+        font-size : 1vw;
+        padding-bottom : 0.2vw;
+    }
+
+    .reviewBox div {
+        width : 100%;
+        height : 12vw;
+        background-color : #eeeeee;
+        border-radius : 2px;
+        margin-bottom : 2vw;
+    }
+
+    .monthSelect {
+        width : 66%;
+        height : 3.7vw;
+        padding : 0 1vw;
+        font-size : 1.3vw;
+        color : gray;
+        border-radius : 5px;
+        border-color : green;
+    }
+
+    .incomedetail > div {
+        width : 67%;
+        padding : 2vw 0;
+        color : gray;
+        font-size : 1.3vw;
+        border-bottom : 1px solid lightgray;
     }
 `;
 

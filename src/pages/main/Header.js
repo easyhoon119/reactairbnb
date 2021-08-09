@@ -1,13 +1,29 @@
 import styled from "styled-components";
 import NavBar from '../../components/common/NavBar';
 import { useHistory } from 'react-router';
+import { useDispatch } from 'react-redux';
+import { SearchAction } from '../../store/actions/search';
+import { useRef } from 'react';
 
 
 function Header() {
 
     const history = useHistory();
+    const dispatch = useDispatch();
+    const adrressed = useRef();
+    const checkined = useRef();
+    const checkouted = useRef();
+    const guestnumed = useRef();
 
     const goSearch = () => {
+        console.log(adrressed.current.value);
+
+        dispatch(SearchAction({
+            address: adrressed.current.value,
+            checkin: checkined.current.value,
+            checkout: checkouted.current.value,
+            guestnum: guestnumed.current.value
+        }));
         history.push('/search');
     };
 
@@ -15,27 +31,29 @@ function Header() {
         <>
             <MainonPicture >
                 <NavBar name="main" />
-                <SearchForm >
-                    <SebuForm action='#' width="32%" borderWidth="100%" pLeft="25px" ppLeft="31px">
-                        <input type="text" id="city" placeholder="어디로 여행가세요?" autoComplete="off" style={{ border: 'none' }} required />
-                        <label htmlFor="city">위치</label>
-                    </SebuForm>
-                    <SebuForm action='#' width="23%" borderWidth="95%" pLeft="17px" ppLeft="29px">
-                        <input type="date" id="checkin" autoComplete="off" required />
-                        <label htmlFor="checkin">체크인</label>
-                    </SebuForm>
-                    <SebuForm action='#' width="23%" borderWidth="95%" pLeft="17px" ppLeft="31px">
-                        <input type="date" id="checkout" autoComplete="off" required />
-                        <label htmlFor="checkout">체크아웃</label>
-                    </SebuForm>
-                    <SebuForm action='#' width="24%" borderWidth="95%" pLeft="17px" ppLeft="29px">
-                        <input type="text" id="person" placeholder="게스트 추가" autoComplete="off" required style={{ borderRight: 'none' }} />
-                        <label htmlFor="person">인원</label>
-                    </SebuForm>
-                    <SearchIcon onClick={goSearch}>
-                        <i className="fas fa-search" ></i>
-                    </SearchIcon>
-                </SearchForm>
+                <div style={{ paddingTop: '6vw' }}>
+                    <SearchForm >
+                        <SebuForm action='#' width="32%" borderWidth="100%" pLeft="25px" ppLeft="31px">
+                            <input type="text" ref={adrressed} id="city" placeholder="어디로 여행가세요?" autoComplete="off" style={{ border: 'none' }} required />
+                            <label htmlFor="city">위치</label>
+                        </SebuForm>
+                        <SebuForm action='#' width="23%" borderWidth="95%" pLeft="17px" ppLeft="29px">
+                            <input type="date" ref={checkined} id="checkin" autoComplete="off" required />
+                            <label htmlFor="checkin">체크인</label>
+                        </SebuForm>
+                        <SebuForm action='#' width="23%" borderWidth="95%" pLeft="17px" ppLeft="31px">
+                            <input type="date" ref={checkouted} id="checkout" autoComplete="off" required />
+                            <label htmlFor="checkout">체크아웃</label>
+                        </SebuForm>
+                        <SebuForm action='#' width="24%" borderWidth="95%" pLeft="17px" ppLeft="29px">
+                            <input type="text" ref={guestnumed} id="person" placeholder="게스트 추가" autoComplete="off" required style={{ borderRight: 'none' }} />
+                            <label htmlFor="person">인원</label>
+                        </SebuForm>
+                        <SearchIcon onClick={goSearch}>
+                            <i className="fas fa-search" ></i>
+                        </SearchIcon>
+                    </SearchForm>
+                </div>
                 <div style={{ position: 'absolute', top: '18vw', left: '7vw' }}>
                     <MainSpan>
                         <p>올림픽/패럴림픽 출전 선수와 함께하는 온라인&nbsp;체험</p>
@@ -59,7 +77,7 @@ const MainonPicture = styled.div`
 
 const SearchForm = styled.div`
     width : 66%;
-    height: 5.5vw;
+    height: 5vw;
     box-sizing : border-box;
     background-color : white;
     margin: 0 auto;

@@ -1,5 +1,5 @@
 const initialState = {
-    isLogged: false
+    isLogged: false,
 }
 
 const IsLoggedReducer = (state = initialState, action) => {

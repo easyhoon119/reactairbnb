@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
 import { loginBoxAction } from '../../store/actions/loginbox';
 import { IsLoggedAction } from '../../store/actions/isLogged';
+import { UserInfoAction } from '../../store/actions/userinfo';
 import TextField from '@material-ui/core/TextField';
 import { Link } from "react-router-dom";
 import { useState, useRef } from 'react';
@@ -20,6 +21,8 @@ function LoginModal() {
     const [password, setPassword] = useState('1');
     const [name, setName] = useState('');
     const [birth, setBirth] = useState('');
+    const [emailBtn, setEmailBtn] = useState(true);
+    const [passwordBtn, setPasswordBtn] = useState(true);
     const [rightMargin, setRightMargin] = useState(16);
     const [whatModal, setWhatModal] = useState('email');
     const [title, setTitle] = useState('로그인 또는 회원가입');
@@ -33,6 +36,8 @@ function LoginModal() {
     };
 
     const goPassword = async () => {
+
+        setEmailBtn(false);
 
         try {
             console.log(1);
@@ -49,6 +54,7 @@ function LoginModal() {
 
             console.log(res);
             setEmail(emailInput.current.childNodes[1].childNodes[0].value);
+            setEmailBtn(true);
 
             if (res.data.code === 3004) {
                 setWhatModal('password');
@@ -69,6 +75,8 @@ function LoginModal() {
 
     const goLogin = async () => {
 
+        setPasswordBtn(false);
+
         try {
             const url = "https://dev.devsanha.site/app/login";
 
@@ -83,11 +91,16 @@ function LoginModal() {
 
             console.log(res);
             setPassword(passwordInput.current.childNodes[1].childNodes[0].value);
+            setPasswordBtn(true);
 
             if (res.data.code === 1000) {
                 dispatch(IsLoggedAction({
-                    isLogged: true
+                    isLogged: true,
                 }));
+                dispatch(UserInfoAction({
+                    userName: res.data.result.name,
+                    userEmail: res.data.result.email
+                }))
                 setName(res.data.result.name);
                 closeModal();
                 console.log(res.data);
@@ -128,7 +141,7 @@ function LoginModal() {
                     <p style={{ fontSize: '2vw', fontWeight: '600' }}>에어비엔비에 오신것을 환영합니다.</p>
                     <EmailForm>
                         <TextField ref={emailInput} type="email" id="outlined-basic" color="secondary" fullWidth label="이메일" variant="outlined" placeholder="이메일" />
-                        <SubmitButton onClick={goPassword}>계속</SubmitButton>
+                        {emailBtn === true ? <SubmitButton onClick={goPassword}>계속</SubmitButton> : <div style={{ width: '100%', height: '4.3vw', borderRadius: '5px', backgroundColor: 'gray', marginTop: '1.8vw', display: 'flex', justifyContent: 'center', alignItems: 'center', fontSize: '2vw' }}><i style={{ color: 'white' }} className="fas fa-sync-alt"></i></div>}
                         <div style={{ width: '100%', display: 'flex', marginTop: '1.2vw', justifyContent: 'space-between', alignItems: 'center' }}>
                             <div style={{ width: '44%', height: '1px', backgroundColor: '#d5d5d5' }}></div>
                             <p style={{ fontSize: '1vw', color: 'rgb(97, 97, 97)' }}>또는</p>
@@ -149,7 +162,7 @@ function LoginModal() {
             return (
                 <div className="inner">
                     <TextField ref={passwordInput} id="outlined-basic1" type="password" color="secondary" fullWidth label="비밀번호" variant="outlined" placeholder="비밀번호" />
-                    <SubmitButton style={{ marginBottom: '2vw' }} onClick={goLogin}>로그인</SubmitButton>
+                    {passwordBtn === true ? <SubmitButton style={{ marginBottom: '2vw' }} onClick={goLogin}>로그인</SubmitButton> : <div style={{ width: '100%', height: '4.3vw', borderRadius: '5px', backgroundColor: 'gray', marginTop: '1.8vw', display: 'flex', justifyContent: 'center', alignItems: 'center', fontSize: '2vw' }}><i style={{ color: 'white' }} className="fas fa-sync-alt"></i></div>}
                     <Link to='#' style={{ fontSize: '1.1vw' }}>비밀번호를 잊으셨나요?</Link>
                 </div>
             );
