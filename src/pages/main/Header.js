@@ -4,6 +4,7 @@ import { useHistory } from 'react-router';
 import { useDispatch } from 'react-redux';
 import { SearchAction } from '../../store/actions/search';
 import { useRef } from 'react';
+import { useEffect, useState } from 'react';
 
 
 function Header() {
@@ -14,6 +15,84 @@ function Header() {
     const checkined = useRef();
     const checkouted = useRef();
     const guestnumed = useRef();
+    const [pos, setPos] = useState(0);
+    const search = useRef();
+    const icon = useRef();
+    const [searchContent, setSearchContent] = useState(<>
+        <SebuForm width="35%" borderWidth="100%" pLeft="25px" ppLeft="31px">
+            <input type="text" ref={adrressed} id="city" placeholder="어디로 여행가세요?" autoComplete="off" style={{ border: 'none' }} required />
+            <label htmlFor="city">위치</label>
+        </SebuForm>
+        <SebuForm width="23%" borderWidth="100%" pLeft="17px" ppLeft="27px">
+            <input type="date" ref={checkined} id="checkin" name="checkin" min="2021-01-01" max="2022-12-31" />
+            <label htmlFor="checkin">체크인</label>
+        </SebuForm>
+        <SebuForm width="23%" borderWidth="100%" pLeft="17px" ppLeft="29px">
+            <input type="date" ref={checkouted} id="checkout" name="checkout" min="2021-01-01" max="2022-12-31" />
+            <label htmlFor="checkout">체크아웃</label>
+        </SebuForm>
+        <SebuForm width="24%" borderWidth="95%" pLeft="17px" ppLeft="29px">
+            <input type="text" ref={guestnumed} id="person" placeholder="게스트 추가" autoComplete="off" required style={{ borderRight: 'none' }} />
+            <label htmlFor="person">인원</label>
+        </SebuForm>
+    </>);
+
+    const updateScroll = () => {
+        if (search.current) {
+            setPos(search.current.getBoundingClientRect());
+
+            console.log(window.pageYOffset);
+            if (window.pageYOffset > 0) {
+                search.current.style.zIndex = '13';
+                search.current.childNodes[0].style.width = '40%';
+                search.current.childNodes[0].style.height = '4vw';
+                icon.current.style.width = '3vw';
+                icon.current.style.height = '3vw';
+
+                search.current.style.transform = 'translateY(-6vw)';
+                // search.current.style.transform = 'scaleX(0.5)';
+                setSearchContent(<>
+                    <p style={{ fontSize: '1.3vw', marginLeft: '2vw' }}>검색 시작하기</p>
+                </>);
+            }
+
+            else {
+
+                search.current.childNodes[0].style.width = '100%';
+                search.current.childNodes[0].style.height = '5vw';
+                icon.current.style.width = '4vw';
+                icon.current.style.height = '4vw';
+                search.current.style.zIndex = '0';
+
+                search.current.style.transform = 'translateY(0vw)';
+                // search.current.style.transform = 'scaleX(1)';
+                setSearchContent(<>
+                    <SebuForm width="32%" borderWidth="100%" pLeft="25px" ppLeft="31px">
+                        <input type="text" ref={adrressed} id="city" placeholder="어디로 여행가세요?" autoComplete="off" style={{ border: 'none' }} required />
+                        <label htmlFor="city">위치</label>
+                    </SebuForm>
+                    <SebuForm width="23%" borderWidth="100%" pLeft="17px" ppLeft="27px">
+                        <input type="date" ref={checkined} id="checkin" name="checkin" min="2021-01-01" max="2022-12-31" />
+                        <label htmlFor="checkin">체크인</label>
+                    </SebuForm>
+                    <SebuForm width="23%" borderWidth="100%" pLeft="17px" ppLeft="29px">
+                        <input type="date" ref={checkouted} id="checkout" name="checkout" min="2021-01-01" max="2022-12-31" />
+                        <label htmlFor="checkout">체크아웃</label>
+                    </SebuForm>
+                    <SebuForm width="24%" borderWidth="95%" pLeft="17px" ppLeft="29px">
+                        <input type="text" ref={guestnumed} id="person" placeholder="게스트 추가" autoComplete="off" required style={{ borderRight: 'none' }} />
+                        <label htmlFor="person">인원</label>
+                    </SebuForm>
+                </>);
+            }
+        }
+    };
+
+    useEffect(() => {
+        window.addEventListener('scroll', updateScroll);
+
+        return () => window.removeEventListener('scroll', updateScroll);
+    }, [pos]);
 
     const goSearch = () => {
         console.log(adrressed.current.value);
@@ -22,7 +101,7 @@ function Header() {
             address: adrressed.current.value,
             checkin: checkined.current.value,
             checkout: checkouted.current.value,
-            guestnum: guestnumed.current.value
+            guestnum: guestnumed.current.value + '명'
         }));
         history.push('/search');
     };
@@ -31,25 +110,10 @@ function Header() {
         <>
             <MainonPicture >
                 <NavBar name="main" />
-                <div style={{ paddingTop: '6vw' }}>
+                <div style={{ marginTop: '6vw', transition: 'all 0.3s', position: 'fixed', top: '1vw', left: '18vw', width: '64vw', zIndex: '12' }} ref={search}>
                     <SearchForm >
-                        <SebuForm action='#' width="32%" borderWidth="100%" pLeft="25px" ppLeft="31px">
-                            <input type="text" ref={adrressed} id="city" placeholder="어디로 여행가세요?" autoComplete="off" style={{ border: 'none' }} required />
-                            <label htmlFor="city">위치</label>
-                        </SebuForm>
-                        <SebuForm action='#' width="23%" borderWidth="95%" pLeft="17px" ppLeft="29px">
-                            <input type="date" ref={checkined} id="checkin" autoComplete="off" required />
-                            <label htmlFor="checkin">체크인</label>
-                        </SebuForm>
-                        <SebuForm action='#' width="23%" borderWidth="95%" pLeft="17px" ppLeft="31px">
-                            <input type="date" ref={checkouted} id="checkout" autoComplete="off" required />
-                            <label htmlFor="checkout">체크아웃</label>
-                        </SebuForm>
-                        <SebuForm action='#' width="24%" borderWidth="95%" pLeft="17px" ppLeft="29px">
-                            <input type="text" ref={guestnumed} id="person" placeholder="게스트 추가" autoComplete="off" required style={{ borderRight: 'none' }} />
-                            <label htmlFor="person">인원</label>
-                        </SebuForm>
-                        <SearchIcon onClick={goSearch}>
+                        {searchContent}
+                        <SearchIcon ref={icon} onClick={goSearch}>
                             <i className="fas fa-search" ></i>
                         </SearchIcon>
                     </SearchForm>
@@ -72,16 +136,17 @@ const MainonPicture = styled.div`
     background-image: url("https://a0.muscache.com/im/pictures/e4a2a61c-589f-4e49-b3b8-968a6bc23389.jpg?im_w=1920");
     background-position: center;
     background-size: cover;
-    position : relative;
+    position: relative;
 `;
 
 const SearchForm = styled.div`
-    width : 66%;
+    width : 100%;
     height: 5vw;
     box-sizing : border-box;
     background-color : white;
     margin: 0 auto;
     border-radius: 30px;
+    transition : width 0.3s, height 0.3s;
     display : flex;
     position : relative;
     align-items : center;
@@ -89,8 +154,8 @@ const SearchForm = styled.div`
 `;
 
 const SearchIcon = styled.div`
-    width : 50px;
-    height : 50px;
+    width : 4vw;
+    height : 4vw;
     background-color : #FF385C;
     border-radius : 50%;
     position: absolute;
@@ -101,6 +166,7 @@ const SearchIcon = styled.div`
     align-items : center;
     color : white;
     cursor : pointer;
+    z-index : 2;
 `;
 
 const SebuForm = styled.form`
@@ -125,7 +191,7 @@ const SebuForm = styled.form`
 
     input {
         width:${props => props.borderWidth};
-        height:20%;
+        height:40%;
         color: #595959;
         margin-top: 0px;
         border: none;
@@ -135,16 +201,18 @@ const SebuForm = styled.form`
         padding-top: 20px;
         padding-left : 17px;
         outline-style: none;
+        z-index : 1;
     }
 
     label {
         position: absolute;
-        bottom: 0px;
+        bottom: 35px;
         left: ${props => props.ppLeft};
         width:100%;
         font-size : 12px;
         font-weight : 700;
-        height:75%;
+        height: fit-content;
+        z-index : 3;
     }
 `;
 

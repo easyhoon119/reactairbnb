@@ -1,6 +1,9 @@
 import styled from 'styled-components';
+import { useHistory } from 'react-router';
 
 function Body() {
+
+    const history = useHistory();
 
     const updatedata = [{
         image: 'https://a0.muscache.com/im/pictures/fff5a5e8-3ab3-4970-a5fc-c51e301a9acb.jpg?im_w=720',
@@ -29,6 +32,10 @@ function Body() {
         </div>
     ));
 
+    const goAddHouse = () => {
+        history.push('/hosting/add');
+    };
+
     return (
         <BodyContainer>
             <div className="today">
@@ -42,7 +49,7 @@ function Body() {
                                 숙소 등록 절차가 거의 완료되었습니다! 숙소 페이지에 누락된 세부정보 몇 가지를 입력해주세요.
                             </p>
                         </div>
-                        <div style={{ backgroundColor: 'white', borderRadius: '10px', width: '11vw', height: '2.8vw', color: 'black', fontSize: '1.15vw', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                        <div onClick={goAddHouse} style={{ cursor: 'pointer', backgroundColor: 'white', borderRadius: '10px', width: '11vw', height: '2.8vw', color: 'black', fontSize: '1.15vw', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                             숙소 등록 완료하기
                         </div>
                     </div>

@@ -17,6 +17,7 @@ function NavBar(props) {
     const Headerscroll = useRef();
     const isLoginBox = useSelector(state => state.LoginBoxReducer);
     const isLogged = useSelector(state => state.IsLoggedReducer);
+    const searchData = useSelector(state => state.SearchReducer);
     const history = useHistory();
 
     const updateScroll = () => {
@@ -25,11 +26,13 @@ function NavBar(props) {
             if (pos.top + window.pageYOffset > 0) {
                 Headerscroll.current.style.backgroundColor = 'white';
                 Headerscroll.current.style.color = 'black';
+                Headerscroll.current.style.boxShadow = 'rgb(0 0 0 / 8%) 0px 1px 12px !important';
                 logoed.current.style.backgroundImage = `url(${logo1})`;
             }
             else {
                 Headerscroll.current.style.backgroundColor = '';
                 Headerscroll.current.style.color = 'white';
+                Headerscroll.current.style.boxShadow = 'none';
                 logoed.current.style.backgroundImage = `url(${logo})`;
             }
         }
@@ -37,7 +40,7 @@ function NavBar(props) {
 
     useEffect(() => {
         window.addEventListener('scroll', updateScroll);
-
+        console.log(searchData);
         return () => window.removeEventListener('scroll', updateScroll);
     }, [pos]);
 
@@ -106,7 +109,7 @@ function NavBar(props) {
         history.push('/hosting');
     };
 
-    const showLink = isProfile === true ? <ProfileLink>
+    const showLink = isProfile === true ? <ProfileLink style={{ zIndex: '200' }}>
         {loggedLink}
     </ProfileLink> : '';
 
@@ -116,7 +119,7 @@ function NavBar(props) {
                 <div className="inner">
                     <Mainlogo ref={logoed} name={props.name} onClick={goHome}></Mainlogo>
                     {props.name === 'main' ? <div style={{ marginLeft: '14vw' }} className="menu">
-                        <ul style={{ display: 'flex' }}>
+                        <ul style={{ display: 'flex', color: 'white' }}>
                             <li style={{ marginRight: '30px', padding: '5px' }}>숙소</li>
                             <li style={{ marginRight: '30px', padding: '5px' }}>체험</li>
                             <li style={{ marginRight: '30px', padding: '5px' }}>온라인 체험</li>
@@ -124,13 +127,13 @@ function NavBar(props) {
                     </div> :
                         <SearchForm name={props.name}>
                             <SebuForm action='#' width="33%" borderWidth="95%" pLeft="17px" ppLeft="29px">
-                                <input type="text" id="checkin" autoComplete="off" required placeholder="지도 표시 지역" style={{ border: 'none' }} />
+                                <input type="text" id="checkin" autoComplete="off" required placeholder={searchData.address === '' ? '지도 표시 구역' : searchData.address} style={{ border: 'none' }} />
                             </SebuForm>
                             <SebuForm action='#' width="28%" borderWidth="95%" pLeft="17px" ppLeft="31px">
-                                <input type="text" id="checkout" autoComplete="off" required placeholder="날짜 입력" />
+                                <input type="text" id="checkout" autoComplete="off" required placeholder={searchData.checkin || '날짜 입력'} />
                             </SebuForm>
                             <SebuForm action='#' width="39%" borderWidth="95%" pLeft="17px" ppLeft="29px">
-                                <input type="text" id="person" placeholder="게스트 추가" autoComplete="off" required style={{ borderRight: 'none' }} />
+                                <input type="text" id="person" placeholder={searchData.guestnum || '게스트 추가'} autoComplete="off" required style={{ borderRight: 'none' }} />
                             </SebuForm>
                             <SearchIcon>
                                 <i className="fas fa-search" ></i>
@@ -239,6 +242,7 @@ const LoggedDot = styled.div`
     position: absolute;
     right : 1vw;
     top : 0vw;
+    z-index:17;
 `;
 
 
@@ -253,19 +257,17 @@ const Mainlogo = styled.div`
 `;
 
 const Mainnav = styled.div`
-    ${props => props.name === 'main' ? 'position : fixed; top:0; left:0; z-index:1000;' : ''};
+    ${props => props.name === 'main' || props.name === 'account' ? 'position : fixed; top:0; left:0; z-index:13;' : ''};
     width:100%;
     height : 6vw;
+    ${props => props.name === 'account' ? 'background-color : #fff;' : ''};
     box-sizing : border-box;
     padding: 5px;
     margin: 0 auto;
     color: ${props => props.name === 'main' ? 'white' : 'black'};
-    // display: flex;
-    // justify-content:space-between;
-    // align-items:center;
     font-size:1.25vw;
     font-weight:350;
-    ${props => props.name === 'main' ? '' : 'box-shadow: 0px 16px 32px rgb(0 0 0 / 15%), 0px 3px 8px rgb(0 0 0 / 10%) !important;'};
+    ${props => props.name === 'main' ? '' : 'box-shadow : rgb(0 0 0 / 8%) 0px 1px 12px !important;'};
 
     li { 
         cursor : pointer;
@@ -305,6 +307,7 @@ const ProfileSelect = styled.div`
     border : 1px solid lightgrey;
     cursor : pointer;
     position: relative;
+    z-index:200;
 `;
 
 const ProfileLink = styled.div`
@@ -314,7 +317,7 @@ const ProfileLink = styled.div`
     width : 19vw;
     background-color : white;
     border-radius : 15px;
-    z-index : 1;
+    z-index : 200000;
     color : black;
     font-size : 1.1vw;
     box-shadow: 0px 16px 32px rgb(0 0 0 / 15%), 0px 3px 8px rgb(0 0 0 / 10%) !important;

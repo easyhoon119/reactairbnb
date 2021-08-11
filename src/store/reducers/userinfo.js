@@ -1,6 +1,8 @@
 const initialState = {
     userName: '김아무개',
-    userEmail: 'kim@gmail.com'
+    userEmail: 'kim@gmail.com',
+    userSex: '',
+    userBirth: ''
 }
 
 const UserInfoReducer = (state = initialState, action) => {
@@ -9,7 +11,9 @@ const UserInfoReducer = (state = initialState, action) => {
             return {
                 ...state,
                 userName: action.data.userName,
-                userEmail: action.data.userEmail
+                userEmail: action.data.userEmail,
+                userSex: action.data.userSex,
+                userBirth: action.data.userBirth
             }
         }
 

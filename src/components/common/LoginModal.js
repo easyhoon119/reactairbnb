@@ -41,7 +41,7 @@ function LoginModal() {
 
         try {
             console.log(1);
-            const url = "https://dev.devsanha.site/app/login";
+            const url = "https://dev.devsanha.site/login";
 
             const res = await axios({
                 method: 'post',
@@ -78,7 +78,7 @@ function LoginModal() {
         setPasswordBtn(false);
 
         try {
-            const url = "https://dev.devsanha.site/app/login";
+            const url = "https://dev.devsanha.site/login";
 
             const res = await axios({
                 method: 'post',
@@ -124,14 +124,41 @@ function LoginModal() {
         setTitle('로그인 또는 회원가입');
     }
 
-    const goMakeId = () => {
+    const goMakeId = async () => {
         const name1 = `${firstNameInput.current.childNodes[1].childNodes[0].value}${nameInput.current.childNodes[1].childNodes[0].value}`;
         const birth1 = birthInput.current.childNodes[0].childNodes[0].value;
         const email1 = newEmailInput.current.childNodes[1].childNodes[0].value;
         const password1 = newPasswordInput.current.childNodes[1].childNodes[0].value;
-        alert('회원가입이 완료되었습니다. 다시 로그인 해주세요.');
+        try {
+            const url1 = "https://dev.devsanha.site/users";
+
+            const res1 = await axios({
+                method: 'post',
+                url: url1,
+                data: {
+                    'name': name1,
+                    'birth': birth1,
+                    'email': email1,
+                    'password': password1
+                }
+            });
+
+            if (res1.data.code === 1000) {
+                alert('회원가입이 완료되었습니다. 다시 로그인 해주세요.');
+                setWhatModal('email');
+            }
+
+            else {
+                alert(res1.data.message);
+            }
+
+        }
+        catch (error) {
+            console.log(error);
+        }
+
         console.log(name1, birth1, email1, password1);
-        setWhatModal('email');
+
     };
 
     const selectModal = () => {
@@ -233,7 +260,7 @@ const LModal = styled.div`
     display : flex;
     justify-content : center;
     align-items : center;
-    z-index:100;
+    z-index:10000;
 
     a {
         color : inherit;
