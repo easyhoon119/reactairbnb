@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { IsLoggedAction } from '../../store/actions/isLogged';
+import { UserInfoAction } from '../../store/actions/userinfo';
 import NavBar from '../../components/common/NavBar';
 import Footer from '../../components/common/Footer';
 import Body from './Body';
@@ -16,11 +17,17 @@ function AccountPage() {
 
     useEffect(() => {
         const jwt = localStorage.getItem('jwt');
+        const username = localStorage.getItem('userName');
+        const useremail = localStorage.getItem('userEmail');
 
-        if (jwt) {
+        if (jwt && username && useremail) {
             dispatch(IsLoggedAction({
                 isLogged: true
             }));
+            dispatch(UserInfoAction({
+                userName: username,
+                userEmail: useremail
+            }))
         }
     }, []);
 

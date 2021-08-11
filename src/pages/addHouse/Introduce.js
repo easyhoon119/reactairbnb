@@ -1,11 +1,19 @@
 import { fontSize } from '@material-ui/system';
 import styled from 'styled-components';
 import logo from '../../image/mainlogo.png'
+import { useHistory } from 'react-router';
 
 function Introduce() {
+
+    const history = useHistory();
+
+    const goHome = () => {
+        history.push('/');
+    };
+
     return (
         <IntroContent>
-            <div className="logo"></div>
+            <div className="logo" onClick={goHome}></div>
             <div style={{ color: 'white', fontSize: '3.7vw', fontWeight: '500', marginTop: '25%' }}>
                 <p style={{ padding: '0 12vw 0 4vw', lineHeight: '4.3vw', wordBreak: 'keep-all' }}>
                     게스트가 머무르게 될 숙소의 정보가 무엇인가요?

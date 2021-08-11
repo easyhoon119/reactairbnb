@@ -9,6 +9,7 @@ import { useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { IsLoggedAction } from '../../store/actions/isLogged';
+import { UserInfoAction } from '../../store/actions/userinfo';
 
 const IndexPage = () => {
 
@@ -17,9 +18,16 @@ const IndexPage = () => {
 
     useEffect(() => {
         const jwt = localStorage.getItem('jwt');
-        if (jwt) {
+        const username = localStorage.getItem('userName');
+        const useremail = localStorage.getItem('userEmail');
+
+        if (jwt && username && useremail) {
             dispatch(IsLoggedAction({
                 isLogged: true
+            }));
+            dispatch(UserInfoAction({
+                userName: username,
+                userEmail: useremail
             }));
         }
     }, [])

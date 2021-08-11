@@ -4,10 +4,12 @@ import logo2 from '../../image/mainlogo2.png'
 import { useHistory } from 'react-router';
 import Body from './Body';
 import Footer from '../../components/common/Footer';
+import { useState } from 'react';
 
 function HostingPage() {
 
     const history = useHistory();
+    const [ismenu, setIsmenu] = useState(false);
 
     const goHome = () => {
         history.push('/');
@@ -16,6 +18,10 @@ function HostingPage() {
     const goInsight = () => {
         history.push('/hosting/insight');
     };
+
+    const menuToggle = () => {
+        setIsmenu(!ismenu);
+    }
 
     return (
         <PageWrap>
@@ -35,10 +41,22 @@ function HostingPage() {
                         <div style={{ marginRight: '1vw', borderRadius: '20px', width: '5vw', height: '3vw' }} className="hosnav" onClick={goInsight}>
                             인사이트
                         </div>
-                        <div style={{ marginRight: '1vw', borderRadius: '20px', width: '5vw', height: '3vw' }} className="hosnav">
-                            <form action="#">
+                        <div onClick={menuToggle} style={{ position: 'relative', marginRight: '1vw', borderRadius: '20px', width: '5vw', height: '3vw' }} className="hosnav">
+                            <form action="#" onClick={menuToggle}>
                                 <input type="checkbox" id="menu" />
                                 <label htmlFor="menu"><span style={{ marginRight: '0.5vw' }}>메뉴</span><i style={{ fontSize: '1vw' }} className="fas fa-chevron-down"></i></label>
+                                <div className="menutoggle">
+                                    <div style={{ borderBottom: '1px solid lightgray', padding: '0vw 0vw', color: 'black', fontSize: '1.2vw', fontWeight: '500' }}>
+                                        <p>숙소</p>
+                                        <p>새로운 숙소 등록하기</p>
+                                    </div>
+                                    <div style={{ padding: '0vw 0vw', color: 'black', fontSize: '1.2vw', fontWeight: '500' }}>
+                                        <p>가이드북</p>
+                                        <p>대금 수령 내역</p>
+                                        <p>호스팅 자료 둘러보기</p>
+                                        <p>커뮤니티 포럼 방문하기</p>
+                                    </div>
+                                </div>
                             </form>
                         </div>
                     </div>
@@ -87,6 +105,30 @@ const MainNav = styled.div`
 
     input[id="menu"] {
         display:none;
+    }
+
+    input[id="menu"]:checked + label + div.menutoggle {
+        display : block;
+    }
+
+    .menutoggle {
+        position : absolute;
+        top : 3.8vw;
+        left : 1vw;
+        width : 18vw;
+        display: none;
+        background-color : #fff;
+        box-shadow: 0px 16px 32px rgb(0 0 0 / 15%), 0px 3px 8px rgb(0 0 0 / 10%) !important;
+        border-radius : 10px;
+        padding : 2vw 0vw;
+    }
+
+    .menutoggle p {
+        padding : 1vw 1vw;
+    }
+
+    .menutoggle p:hover {
+        background-color : lightgray;
     }
 `;
 

@@ -104,6 +104,8 @@ function LoginModal() {
                 setName(res.data.result.name);
                 closeModal();
                 console.log(res.data);
+                localStorage.setItem('userEmail', res.data.result.email);
+                localStorage.setItem('userName', res.data.result.name);
                 localStorage.setItem('jwt', res.data.result.jwt);
             }
 

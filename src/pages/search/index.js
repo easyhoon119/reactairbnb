@@ -7,6 +7,7 @@ import Footer from '../../components/common/Footer';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { IsLoggedAction } from '../../store/actions/isLogged';
+import { UserInfoAction } from '../../store/actions/userinfo';
 
 function SearchPage() {
 
@@ -16,12 +17,17 @@ function SearchPage() {
 
     useEffect(() => {
         const jwt = localStorage.getItem('jwt');
-        console.log(SearchData);
+        const useremail = localStorage.getItem('userEmail');
+        const username = localStorage.getItem('userName');
 
-        if (jwt) {
+        if (jwt && useremail && username) {
             dispatch(IsLoggedAction({
                 isLogged: true
-            }))
+            }));
+            dispatch(UserInfoAction({
+                userName: username,
+                userEmail: useremail
+            }));
         }
     }, []);
 

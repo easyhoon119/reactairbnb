@@ -101,7 +101,7 @@ function Header() {
             address: adrressed.current.value,
             checkin: checkined.current.value,
             checkout: checkouted.current.value,
-            guestnum: guestnumed.current.value + '명'
+            guestnum: guestnumed.current.value
         }));
         history.push('/search');
     };
