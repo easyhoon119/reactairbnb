@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
-function StickyDate() {
+function StickyDate(props) {
     return (
         <StickySection>
             <StickySelect>
@@ -9,7 +9,7 @@ function StickyDate() {
                     <p style={{ wordBreak: 'keep-all', fontSize: '1.8vw', fontWeight: '400', lineHeight: '2.2vw' }}>요금을 확인하려면 날짜를 입력하세요.</p>
                     <div style={{ display: 'flex', fontSize: '1.1vw', marginTop: '0.7vw', alignItems: 'center' }}>
                         <i className="fas fa-star" style={{ color: 'red', marginRight: '0.3vw', fontSize: '1.1vw' }}></i>
-                        <p style={{ marginRight: '0.2vw' }}>4.97</p>
+                        <p style={{ marginRight: '0.2vw' }}>{props.data.avgRate || '0.0'}</p>
                         <p style={{ color: '#b5b5b5' }}>(후기 161개)</p>
                     </div>
                     <div style={{ marginTop: '2vw', width: '100%' }}>

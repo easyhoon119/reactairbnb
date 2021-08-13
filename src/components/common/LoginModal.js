@@ -19,8 +19,6 @@ function LoginModal() {
     const newPasswordInput = useRef();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('1');
-    const [name, setName] = useState('');
-    const [birth, setBirth] = useState('');
     const [emailBtn, setEmailBtn] = useState(true);
     const [passwordBtn, setPasswordBtn] = useState(true);
     const [rightMargin, setRightMargin] = useState(16);
@@ -99,11 +97,14 @@ function LoginModal() {
                 }));
                 dispatch(UserInfoAction({
                     userName: res.data.result.name,
-                    userEmail: res.data.result.email
+                    userEmail: res.data.result.email,
+                    userSex: res.data.result.sex,
+                    userBirth: res.data.result.birth
                 }))
-                setName(res.data.result.name);
                 closeModal();
                 console.log(res.data);
+                localStorage.setItem('userBirth', res.data.result.birth);
+                localStorage.setItem('userSex', res.data.result.sex)
                 localStorage.setItem('userEmail', res.data.result.email);
                 localStorage.setItem('userName', res.data.result.name);
                 localStorage.setItem('jwt', res.data.result.jwt);

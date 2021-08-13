@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import { useSelector } from 'react-redux';
-import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Route } from 'react-router';
 import { useHistory } from 'react-router';
@@ -64,10 +63,6 @@ function Body() {
         name: 'coupon',
         comment: '₩0의 추천 크레딧과 쿠폰이 있습니다. 자세히 알아보기'
     }]
-
-    useEffect(() => {
-        console.log(userData.userName);
-    }, []);
 
     const goChangeAccount = (e) => {
         if (e.target.className === 'accountInfo') {

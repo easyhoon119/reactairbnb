@@ -3,8 +3,35 @@ import { Link } from 'react-router-dom';
 import MoreDetail from './MoreDetail';
 import StickyDate from './StickyDate';
 import GoogleMap from '../search/GoogleMap';
+import { useEffect } from 'react';
+import { useSelector } from 'react-redux';
+import axios from 'axios';
+import { useState } from 'react';
 
 function Body() {
+
+    const stayid = useSelector(state => state.SearchIdReducer);
+    const [stayName, setStayName] = useState('');
+    const [avgRate, setAvgRate] = useState('');
+    const [address, setAddress] = useState('');
+    const [searchData, setSearchData] = useState({
+        "stayId": 4,
+        "superHost": 1,
+        "stayName": "yoon이네",
+        "address": "부산 동감동",
+        "imageURL": "guestroom.png",
+        "maxGuests": 4,
+        "bedRoomCount": 1,
+        "bedCount": 1,
+        "showerRoomCount": 1,
+        "cancelPos": 1,
+        "stayType": "'집 전체'",
+        "avgRate": "5.0",
+        "cntRate": 1,
+        "totalPrice": "$125",
+        "latitude": "35.157624",
+        "longitude": "129.125522"
+    });
 
     const expoint = [{
         name: '청결도',
@@ -67,6 +94,32 @@ function Body() {
         margin: '0'
     }];
 
+    useEffect(async () => {
+        console.log(stayid.searchId);
+        try {
+            const url = `https://dev.devsanha.site/search-stay?stayId=${stayid.searchId}&address=부산&checkIn=2021-08-20&checkOut=&guestNum=1&cancelPos=&superHost=&minPrice=&maxPrice=&category=&bedCount=&bedroomCount=&showerCount=&petOk=&smokingOk=`;
+
+            const res = await axios({
+                method: 'get',
+                url: url
+            });
+
+            if (res.data.code === 1000) {
+                setSearchData(res.data.result[0]);
+                setStayName(res.data.result[0].stayName);
+                setAvgRate(res.data.result[0].avgRate);
+                setAddress(res.data.result[0].address);
+            }
+
+            else {
+                console.log(res.data.message);
+            }
+        }
+        catch (error) {
+            console.log(error);
+        }
+    }, [])
+
     const progress = expoint.map((item, index) => (
         <div key={index} style={{ display: 'flex', marginRight: '8vw', marginBottom: '2vw', justifyContent: 'space-between', width: '40%', alignItems: 'center' }}>
             <p>{item.name}</p>
@@ -98,10 +151,10 @@ function Body() {
     return (
         <DetailBody>
             <div className="inner">
-                <p style={{ fontSize: '2vw', fontWeight: '600' }}>❥조이랜드(JOY:LAND)_도심속의 정원✿#오픈이벤트#광안리도보2분#갬성숙소#매일소독❥</p>
+                <p style={{ fontSize: '2vw', fontWeight: '600' }}>{stayName}</p>
                 <div style={{ display: 'flex', marginTop: '1.3vw', fontSize: '1.15vw' }}>
                     <i className="fas fa-star" style={{ color: 'red', marginRight: '0.3vw', fontSize: '1vw' }}></i>
-                    <p style={{ color: '#959595' }}><span style={{ color: 'black' }}>5.0</span> <Link to="#">(후기 5개)</Link> · <Link to="#">Millak-dong, suyeong-gu, 부산, 한국</Link></p>
+                    <p style={{ color: '#959595' }}><span style={{ color: 'black' }}>{avgRate || '0.0'}</span> <Link to="#">(후기 5개)</Link> · <Link to="#">{`${address}, 한국`}</Link></p>
                 </div>
                 <div style={{ display: 'flex', marginTop: '2vw' }} className="introimg">
                     <div className="main" style={{ marginRight: '0.7vw' }}>
@@ -115,13 +168,13 @@ function Body() {
                     </div>
                 </div>
                 <div style={{ display: 'flex', borderBottom: '1px solid lightgray' }}>
-                    <MoreDetail />
-                    <StickyDate />
+                    <MoreDetail data={searchData} />
+                    <StickyDate data={searchData} />
                 </div>
                 <BodyContent>
                     <div style={{ display: 'flex', fontSize: '1.6vw', fontWeight: '500', alignItems: 'center' }}>
                         <i className="fas fa-star" style={{ color: 'red', marginRight: '0.7vw', fontSize: '1.5vw' }}></i>
-                        <p style={{ marginRight: '0.2vw' }}>4.97 · </p>
+                        <p style={{ marginRight: '0.2vw' }}>{avgRate || '0.0'} · </p>
                         <p>후기 161개</p>
                     </div>
                     <div style={{ display: 'flex', flexWrap: 'wrap', marginTop: '3.5vw' }}>
@@ -134,10 +187,10 @@ function Body() {
                 <BodyContent>
                     <p style={{ fontSize: '1.6vw', fontWeight: '500' }}>호스팅 지역</p>
                     <div style={{ marginTop: '2vw', width: '100%', height: '40vw' }}>
-                        <GoogleMap name="detail" />
+                        <GoogleMap name="detail" stayId={stayid.searchId} />
                     </div>
                     <div style={{ marginTop: '3vw' }}>
-                        <p style={{ fontSize: '1.5vw', fontWeight: '500' }}>Millak dong, Suyeong-gu, 부산, 한국</p>
+                        <p style={{ fontSize: '1.5vw', fontWeight: '500' }}>{`${address}, 한국`}</p>
                         <p style={{ marginTop: '1.5vw', textOverflow: 'ellipsis', lineHeight: '1.8vw', whiteSpace: 'nowrap', width: '21%', overflow: 'hidden', height: '5vw' }}>
                             - 민락 회센터 도보 20초<br />
                             - 24시 마트 건물 1층에 위치<br />

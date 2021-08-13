@@ -1,4 +1,3 @@
-import { fontSize } from '@material-ui/system';
 import styled from 'styled-components';
 import logo from '../../image/mainlogo.png'
 import { useHistory } from 'react-router';

@@ -5,6 +5,7 @@ import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { loginBoxAction } from '../../store/actions/loginbox';
 import { IsLoggedAction } from '../../store/actions/isLogged';
+import { SearchAction } from '../../store/actions/search';
 import { useHistory } from 'react-router';
 import { useRef } from 'react';
 
@@ -15,14 +16,15 @@ function NavBar(props) {
     const [pos, setPos] = useState(0);
     const logoed = useRef();
     const Headerscroll = useRef();
-    const isLoginBox = useSelector(state => state.LoginBoxReducer);
+    const addressInput = useRef();
+    const numInput = useRef();
     const isLogged = useSelector(state => state.IsLoggedReducer);
     const searchData = useSelector(state => state.SearchReducer);
     const history = useHistory();
 
     const updateScroll = () => {
-        if (Headerscroll.current && props.name == 'main') {
-            setPos(Headerscroll.current.getBoundingClientRect());
+        setPos(Headerscroll.current.getBoundingClientRect());
+        if (Headerscroll.current && props.name === 'main') {
             if (pos.top + window.pageYOffset > 0) {
                 Headerscroll.current.style.backgroundColor = 'white';
                 Headerscroll.current.style.color = 'black';
@@ -40,7 +42,7 @@ function NavBar(props) {
 
     useEffect(() => {
         window.addEventListener('scroll', updateScroll);
-        console.log(searchData);
+
         return () => window.removeEventListener('scroll', updateScroll);
     }, [pos]);
 
@@ -50,8 +52,6 @@ function NavBar(props) {
 
     const goLoginModal = () => {
         document.querySelector('body').classList.add('openlogin');
-        console.log(isLoginBox.isLoginBox);
-        console.log(isLogged.isLogged);
         dispatch(loginBoxAction({
             isLoginBox: true
         }));
@@ -109,6 +109,16 @@ function NavBar(props) {
         history.push('/hosting');
     };
 
+    const changeSearch = () => {
+        dispatch(SearchAction({
+            address: addressInput.current.value,
+            checkin: searchData.checkin,
+            checkout: searchData.checkout,
+            guestnum: numInput.current.value
+        }));
+        history.push('/search');
+    };
+
     const showLink = isProfile === true ? <ProfileLink style={{ zIndex: '200' }}>
         {loggedLink}
     </ProfileLink> : '';
@@ -127,15 +137,15 @@ function NavBar(props) {
                     </div> :
                         <SearchForm name={props.name}>
                             <SebuForm action='#' width="33%" borderWidth="95%" pLeft="17px" ppLeft="29px">
-                                <input type="text" id="checkin" autoComplete="off" required placeholder={searchData.address === '' ? '지도 표시 구역' : searchData.address} style={{ border: 'none' }} />
+                                <input ref={addressInput} type="text" id="checkin" value="부산" autoComplete="off" readOnly required placeholder={searchData.address === '' ? '지도 표시 구역' : searchData.address} style={{ border: 'none' }} />
                             </SebuForm>
                             <SebuForm action='#' width="28%" borderWidth="95%" pLeft="17px" ppLeft="31px">
                                 <input type="text" id="checkout" autoComplete="off" required placeholder={searchData.checkin || '날짜 입력'} />
                             </SebuForm>
                             <SebuForm action='#' width="39%" borderWidth="95%" pLeft="17px" ppLeft="29px">
-                                <input type="text" id="person" placeholder={searchData.guestnum || '게스트 추가'} autoComplete="off" required style={{ borderRight: 'none' }} />
+                                <input ref={numInput} type="text" id="person" placeholder={searchData.guestnum || '게스트 추가'} autoComplete="off" required style={{ borderRight: 'none' }} />
                             </SebuForm>
-                            <SearchIcon>
+                            <SearchIcon onClick={changeSearch}>
                                 <i className="fas fa-search" ></i>
                             </SearchIcon>
                         </SearchForm>

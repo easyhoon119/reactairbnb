@@ -13,12 +13,13 @@ function SearchPage() {
 
     const isLoginBox = useSelector(state => state.LoginBoxReducer);
     const dispatch = useDispatch();
-    const SearchData = useSelector(state => state.SearchReducer);
 
     useEffect(() => {
         const jwt = localStorage.getItem('jwt');
         const useremail = localStorage.getItem('userEmail');
         const username = localStorage.getItem('userName');
+        const usersex = localStorage.getItem('userSex');
+        const userbirth = localStorage.getItem('userBirth');
 
         if (jwt && useremail && username) {
             dispatch(IsLoggedAction({
@@ -26,10 +27,12 @@ function SearchPage() {
             }));
             dispatch(UserInfoAction({
                 userName: username,
-                userEmail: useremail
+                userEmail: useremail,
+                userSex: usersex,
+                userBirth: userbirth
             }));
         }
-    }, []);
+    }, [dispatch]);
 
     return (
         <PageWrap>

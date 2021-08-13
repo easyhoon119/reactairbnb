@@ -52,6 +52,7 @@ function ChangeAccount() {
                     userSex: userData.userSex,
                     userBirth: userData.userBirth,
                 }));
+                localStorage.setItem('userName', name1);
             }
 
             else {
@@ -86,6 +87,7 @@ function ChangeAccount() {
                     userSex: sexInput.current.value,
                     userBirth: userData.userBirth,
                 }));
+                localStorage.setItem('userSex', sexInput.current.value);
             }
 
             else {
@@ -121,6 +123,7 @@ function ChangeAccount() {
                     userSex: userData.userSex,
                     userBirth: birth1
                 }));
+                localStorage.setItem('userBirth', birth1);
             }
             else {
                 alert(res2.data.message);
@@ -154,6 +157,7 @@ function ChangeAccount() {
                     userSex: userData.userSex,
                     userBirth: userData.userBirth
                 }));
+                localStorage.setItem('userEmail', emailInput.current.value);
             }
             else {
                 alert(res3.data.message);

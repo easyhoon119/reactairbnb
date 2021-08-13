@@ -116,3 +116,16 @@
 - jwt검증 api 대신 localstorage에 유저 정보를 저장
 - hosting 페이지 메뉴 탭 기능 구현
 - 숙소 검색 api와 연동(검색 후 숙소 리스트, 구글 맵 마커)
+
+## 2021-08-13 개발일지
+
+- 숙소 검색 api의 중복 문제와 rendering 문제 해결
+- userinforeducer에 usersex와 userbirth 추가
+- 숙소 image 업로드 디자인
+- image 업로드 firebase와 연동
+- 위도와 경도 값을 알기위한 gocoder 라이브러리 연동
+- 숙소 상세정보 조회 api와 연동
+- 숙소 등록 api와 연동
+- imageLoading keyframe 지정
+- 메인 페이지 검색창 애니메이션 수정
+- 회원 정보 수정시 localstorage에 반영

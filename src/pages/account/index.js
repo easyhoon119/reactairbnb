@@ -1,5 +1,4 @@
 import { PageWrap } from '../../components/common/styled';
-import styled from 'styled-components';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { IsLoggedAction } from '../../store/actions/isLogged';
@@ -19,6 +18,8 @@ function AccountPage() {
         const jwt = localStorage.getItem('jwt');
         const username = localStorage.getItem('userName');
         const useremail = localStorage.getItem('userEmail');
+        const usersex = localStorage.getItem('userSex');
+        const userbirth = localStorage.getItem('userBirth');
 
         if (jwt && username && useremail) {
             dispatch(IsLoggedAction({
@@ -26,10 +27,12 @@ function AccountPage() {
             }));
             dispatch(UserInfoAction({
                 userName: username,
-                userEmail: useremail
+                userEmail: useremail,
+                userSex: usersex,
+                userBirth: userbirth
             }))
         }
-    }, []);
+    }, [dispatch]);
 
     return (
         <PageWrap>

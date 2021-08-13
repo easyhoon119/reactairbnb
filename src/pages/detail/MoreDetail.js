@@ -1,12 +1,11 @@
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import date from '../../image/date.jpeg';
 import Calendar from 'react-calendar';
 import { classes } from 'istanbul-lib-coverage';
 import { useState } from 'react';
 import 'react-calendar/dist/Calendar.css';
 
-function MoreDetail() {
+function MoreDetail(props) {
 
     const [value, onChange] = useState(new Date());
 
@@ -14,8 +13,8 @@ function MoreDetail() {
         <MoreSection>
             <div style={{ display: 'flex', width: '100%', justifyContent: 'space-between', paddingBottom: '1.8vw', borderBottom: '1.2px solid lightgray' }}>
                 <div>
-                    <p style={{ fontSize: '1.8vw', fontWeight: '500' }}>Song Myo님이 호스팅하는 공동 주택 전체</p>
-                    <p style={{ marginTop: '1vw', color: 'grey' }}>최대 인원 2명 · 침실 1개 · 침대 1개 · 욕실 1개</p>
+                    <p style={{ fontSize: '1.8vw', fontWeight: '500' }}>{`Song Myo님이 호스팅하는 ${props.data.stayType.replace("'", '').replace("'", '')}`}</p>
+                    <p style={{ marginTop: '1vw', color: 'grey' }}>{`최대 인원 ${props.data.maxGuests}명 · 침실 ${props.data.bedRoomCount}개 · 침대 ${props.data.bedCount}개 · 욕실 ${props.data.showerRoomCount}개`}</p>
                 </div>
                 <img className="propfile" src="https://a0.muscache.com/im/pictures/user/e9722c98-aef1-4421-8b36-fefbe749a986.jpg?im_w=240" alt="profile" />
             </div>
@@ -23,7 +22,7 @@ function MoreDetail() {
                 <div style={{ display: 'flex', alignItems: 'center', marginBottom: '2.5vw' }}>
                     <i className="fas fa-home"></i>
                     <div style={{ marginLeft: '1.5vw', fontSize: '1.3vw' }}>
-                        <p style={{ fontWeight: '500' }}>집 전체</p>
+                        <p style={{ fontWeight: '500' }}>{props.data.stayType.replace("'", '').replace("'", '')}</p>
                         <p style={{ color: 'gray', fontSize: '1.1vw', marginTop: '0.7vw' }}>아파트 전체를 단독으로 사용하시게 됩니다.</p>
                     </div>
                 </div>

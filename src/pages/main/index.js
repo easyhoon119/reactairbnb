@@ -1,6 +1,4 @@
-import styled from "styled-components"
-import { CoronaStyle, PageWrap } from "../../components/common/styled";
-import { Link } from 'react-router-dom';
+import { PageWrap } from "../../components/common/styled";
 import Header from './Header';
 import Body from './Body';
 import Footer from '../../components/common/Footer';
@@ -20,6 +18,8 @@ const IndexPage = () => {
         const jwt = localStorage.getItem('jwt');
         const username = localStorage.getItem('userName');
         const useremail = localStorage.getItem('userEmail');
+        const usersex = localStorage.getItem('userSex');
+        const userbirth = localStorage.getItem('userBirth');
 
         if (jwt && username && useremail) {
             dispatch(IsLoggedAction({
@@ -27,7 +27,9 @@ const IndexPage = () => {
             }));
             dispatch(UserInfoAction({
                 userName: username,
-                userEmail: useremail
+                userEmail: useremail,
+                userSex: usersex,
+                userBirth: userbirth
             }));
         }
     }, [])
@@ -41,14 +43,5 @@ const IndexPage = () => {
         </PageWrap>
     )
 }
-
-const CoronaText = styled.span`
-    color:#A3A3A3;
-    font-size:1.1vw;
-
-    a {
-        color: inherit;
-    }
-`;
 
 export default IndexPage

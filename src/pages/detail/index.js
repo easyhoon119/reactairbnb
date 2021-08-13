@@ -18,6 +18,8 @@ function DetailPage() {
         const jwt = localStorage.getItem('jwt');
         const username = localStorage.getItem('userName');
         const useremail = localStorage.getItem('userEmail');
+        const usersex = localStorage.getItem('userSex');
+        const userbirth = localStorage.getItem('userBirth');
 
         if (jwt && username && useremail) {
             dispatch(IsLoggedAction({
@@ -25,7 +27,9 @@ function DetailPage() {
             }));
             dispatch(UserInfoAction({
                 userName: username,
-                userEmail: useremail
+                userEmail: useremail,
+                userSex: usersex,
+                userBirth: userbirth
             }));
         }
     }, []);

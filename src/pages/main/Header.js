@@ -37,11 +37,13 @@ function Header() {
         </SebuForm>
     </>);
 
+    const goTop = () => {
+        window.scrollTo(0, 0);
+    };
+
     const updateScroll = () => {
         if (search.current) {
             setPos(search.current.getBoundingClientRect());
-
-            console.log(window.pageYOffset);
             if (window.pageYOffset > 0) {
                 search.current.style.zIndex = '13';
                 search.current.childNodes[0].style.width = '40%';
@@ -52,7 +54,7 @@ function Header() {
                 search.current.style.transform = 'translateY(-6vw)';
                 // search.current.style.transform = 'scaleX(0.5)';
                 setSearchContent(<>
-                    <p style={{ fontSize: '1.3vw', marginLeft: '2vw' }}>검색 시작하기</p>
+                    <p onClick={goTop} style={{ fontSize: '1.3vw', marginLeft: '2vw', cursor: 'pointer' }}>검색 시작하기</p>
                 </>);
             }
 
@@ -95,8 +97,6 @@ function Header() {
     }, [pos]);
 
     const goSearch = () => {
-        console.log(adrressed.current.value);
-
         dispatch(SearchAction({
             address: adrressed.current.value,
             checkin: checkined.current.value,
