@@ -31,7 +31,7 @@ function ChangeAccount() {
         const name1 = `${firstNameInput.current.value}${nameInput.current.value}`;
         console.log(name1);
         try {
-            const url = 'https://dev.devsanha.site/users/name';
+            const url = 'https://propd.devsanha.site/users/name';
 
             const res = await axios({
                 method: 'patch',
@@ -66,7 +66,7 @@ function ChangeAccount() {
 
     const realChangeSex = async () => {
         try {
-            const url1 = 'https://dev.devsanha.site/users/sex';
+            const url1 = 'https://prod.devsanha.site/users/sex';
 
             const res1 = await axios({
                 method: 'patch',
@@ -102,7 +102,7 @@ function ChangeAccount() {
     const realChangeBirth = async () => {
         const birth1 = `${yearInput.current.value}/${monthInput.current.value}/${dayInput.current.value}`;
         try {
-            const url2 = 'https://dev.devsanha.site/users/birth';
+            const url2 = 'https://prod.devsanha.site/users/birth';
 
             const res2 = await axios({
                 method: 'patch',
@@ -136,7 +136,7 @@ function ChangeAccount() {
 
     const realChangeEmail = async () => {
         try {
-            const url3 = 'https://dev.devsanha.site/users/email';
+            const url3 = 'https://prod.devsanha.site/users/email';
 
             const res3 = await axios({
                 method: 'patch',

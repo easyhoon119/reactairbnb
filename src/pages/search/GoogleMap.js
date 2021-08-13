@@ -13,7 +13,7 @@ function GoogleMap(props) {
         async function fetchData() {
             if (props.name === 'detail') {
                 try {
-                    const url = `https://dev.devsanha.site/search-stay?stayId=${stayid.searchId}&address=부산&checkIn=2021-08-20&checkOut=&guestNum=1&cancelPos=&superHost=&minPrice=&maxPrice=&category=&bedCount=&bedroomCount=&showerCount=&petOk=&smokingOk=`;
+                    const url = `https://prod.devsanha.site/search-stay?stayId=${stayid.searchId}&address=부산&checkIn=2021-08-20&checkOut=&guestNum=1&cancelPos=&superHost=&minPrice=&maxPrice=&category=&bedCount=&bedroomCount=&showerCount=&petOk=&smokingOk=`;
                     console.log(stayid.searchId);
                     const res = await axios({
                         method: 'get',
@@ -35,7 +35,7 @@ function GoogleMap(props) {
             }
             else {
                 try {
-                    const url = `https://dev.devsanha.site/search?address=${searchData.address}&checkIn=${searchData.checkin}&checkOut=${searchData.checkout}&guestNum=${searchData.guestnum}&cancelPos=&superHost=&minPrice=&maxPrice=&category=&bedCount=&bedroomCount=&showerCount=&petOk=&smokingOk=`;
+                    const url = `https://prod.devsanha.site/search?address=${searchData.address}&checkIn=${searchData.checkin}&checkOut=${searchData.checkout}&guestNum=${searchData.guestnum}&cancelPos=&superHost=&minPrice=&maxPrice=&category=&bedCount=&bedroomCount=&showerCount=&petOk=&smokingOk=`;
 
                     const res = await axios({
                         method: 'get',

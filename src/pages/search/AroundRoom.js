@@ -17,7 +17,7 @@ function AroundRoom() {
     useEffect(async () => {
 
         try {
-            const url = `https://dev.devsanha.site/search?address=${searchData.address}&checkIn=${searchData.checkin}&checkOut=${searchData.checkout}&guestNum=${searchData.guestnum}&cancelPos=&superHost=&minPrice=&maxPrice=&category=&bedCount=&bedroomCount=&showerCount=&petOk=&smokingOk=`;
+            const url = `https://prod.devsanha.site/search?address=${searchData.address}&checkIn=${searchData.checkin}&checkOut=${searchData.checkout}&guestNum=${searchData.guestnum}&cancelPos=&superHost=&minPrice=&maxPrice=&category=&bedCount=&bedroomCount=&showerCount=&petOk=&smokingOk=`;
             let prevId = 0;
             console.log(1);
             const res = await axios({

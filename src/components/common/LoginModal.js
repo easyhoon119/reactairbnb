@@ -39,7 +39,7 @@ function LoginModal() {
 
         try {
             console.log(1);
-            const url = "https://dev.devsanha.site/login";
+            const url = "https://prod.devsanha.site/login";
 
             const res = await axios({
                 method: 'post',
@@ -76,7 +76,7 @@ function LoginModal() {
         setPasswordBtn(false);
 
         try {
-            const url = "https://dev.devsanha.site/login";
+            const url = "https://prod.devsanha.site/login";
 
             const res = await axios({
                 method: 'post',
@@ -133,7 +133,7 @@ function LoginModal() {
         const email1 = newEmailInput.current.childNodes[1].childNodes[0].value;
         const password1 = newPasswordInput.current.childNodes[1].childNodes[0].value;
         try {
-            const url1 = "https://dev.devsanha.site/users";
+            const url1 = "https://prod.devsanha.site/users";
 
             const res1 = await axios({
                 method: 'post',

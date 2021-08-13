@@ -141,7 +141,7 @@ function Question() {
                     console.log(imageUrl2);
                     console.log(imageUrl3);
                     try {
-                        const url = 'https://dev.devsanha.site/hosts/stays';
+                        const url = 'https://prod.devsanha.site/hosts/stays';
 
                         const res = await axios({
                             method: 'post',
