@@ -151,7 +151,7 @@ function Body() {
     return (
         <DetailBody>
             <div className="inner">
-                <p style={{ fontSize: '2vw', fontWeight: '600' }}>{stayName}</p>
+                <p style={{ fontSize: '2vw', fontWeight: '600' }}>{stayName || '❥조이랜드(JOY:LAND)_도심속의 정원✿ #광안리도보2분#넷플릭스#갬성숙소#매일소독❥'}</p>
                 <div style={{ display: 'flex', marginTop: '1.3vw', fontSize: '1.15vw' }}>
                     <i className="fas fa-star" style={{ color: 'red', marginRight: '0.3vw', fontSize: '1vw' }}></i>
                     <p style={{ color: '#959595' }}><span style={{ color: 'black' }}>{avgRate || '0.0'}</span> <Link to="#">(후기 5개)</Link> · <Link to="#">{`${address}, 한국`}</Link></p>

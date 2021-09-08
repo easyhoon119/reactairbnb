@@ -31,7 +31,7 @@ function ChangeAccount() {
         const name1 = `${firstNameInput.current.value}${nameInput.current.value}`;
         console.log(name1);
         try {
-            const url = 'https://propd.devsanha.site/users/name';
+            const url = 'https://prod.devsanha.site/users/name';
 
             const res = await axios({
                 method: 'patch',

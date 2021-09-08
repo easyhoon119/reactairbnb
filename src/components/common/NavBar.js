@@ -23,8 +23,8 @@ function NavBar(props) {
     const history = useHistory();
 
     const updateScroll = () => {
-        setPos(Headerscroll.current.getBoundingClientRect());
         if (Headerscroll.current && props.name === 'main') {
+            setPos(Headerscroll.current.getBoundingClientRect());
             if (pos.top + window.pageYOffset > 0) {
                 Headerscroll.current.style.backgroundColor = 'white';
                 Headerscroll.current.style.color = 'black';
