@@ -277,6 +277,9 @@ const RealModal = styled.div`
     transform : translate(-50%, -50%);
     width : 50vw;
     min-height : 40vw;
+    max-height : 90vh;
+    overflow-y : auto;
+    overflow-x : hidden;
     background-color : white;
     border-radius : 15px;
     z-index : 1;
